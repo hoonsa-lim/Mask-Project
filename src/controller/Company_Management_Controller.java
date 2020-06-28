@@ -551,8 +551,7 @@ public class Company_Management_Controller implements Initializable {
 
 		// alert 창에서 ok를 눌러 닫으면 삭제 진행
 		if (alert.getResult().getText().equals("OK")) {
-			CompanyDAO cdao = new CompanyDAO();
-			int result = cdao.CompanyDelete(cm);
+			int result = new CompanyDAO().CompanyDelete(cm);
 			if (result == 0) {
 				System.out.println("CompanyRegistration의 쿼리문이 실행되지 않았습니다 ," + result);
 			} else {

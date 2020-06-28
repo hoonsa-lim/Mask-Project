@@ -22,6 +22,8 @@ public class TradeListModel {
 		this.purchaseOrSell = purchaseOrSell;
 	}
 	
+	
+	
 	//오버로딩(추가 : 업체명, 제품명, 제품번호)
 	public TradeListModel(int no, int order_quantity, String total_price, String date, String purchaseOrSell,
 			String companyName, String productName, String productNumber) {

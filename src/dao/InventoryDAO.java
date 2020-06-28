@@ -179,7 +179,7 @@ public class InventoryDAO {
 			}
 			
 			String query = "select b.product_number, b.product_name, \r\n" + 
-					"b.stock, b.purchase_price, b.sell_price, b.type, b.size, b.color, a.company_name\r\n" + 
+					"b.stock, b.purchase_price, b.sell_price, b.type, b.size, b.color, a.company_name, a.company_number\r\n" + 
 					"from companyTBL a, inventoryTBL b\r\n" + 
 					"where a.company_number = b.c_cnumber_fk;";
 			
@@ -189,7 +189,7 @@ public class InventoryDAO {
 			arrList=new ArrayList<Inventory>();
 			while(rs.next()) {
 				Inventory inventory = new Inventory(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getInt(4),
-						rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9));
+						rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10));
 				
 				arrList.add(inventory);
 			}

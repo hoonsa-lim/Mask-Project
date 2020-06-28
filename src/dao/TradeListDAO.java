@@ -146,7 +146,7 @@ public class TradeListDAO {
 	}
 
 	// 주문,판매 등록 - 재고관리 화면에서 주문, 판매 시 tradeList에 등록 함수
-	public int registrationPurchaseOrSell(String nowDate, int quantity, String total_price, String purchaseOrSell, String cNumber,String pNumber) {
+	public int registrationPurchaseOrSell( int quantity, String total_price, String nowDate, String purchaseOrSell, String cNumber,String pNumber) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;

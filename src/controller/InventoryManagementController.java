@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.concurrent.Phaser;
@@ -131,12 +132,14 @@ public class InventoryManagementController implements Initializable{
 	private String production = "생산";
 	private String production2 = "소비";
 	private String purchase = "주문";
+	private ArrayList<Inventory> arrayList = null;
 	
 	public InventoryManagementController() {
 		this.inventoryStage = null;
 		this.obList = FXCollections.observableArrayList();
 		this.obList1 = FXCollections.observableArrayList();
 		this.obList3 = FXCollections.observableArrayList();
+		this.arrayList = new ArrayList<Inventory>();
 	}
 
 	@Override
@@ -307,12 +310,26 @@ public class InventoryManagementController implements Initializable{
 		InventoryDAO inventoryDAO = new InventoryDAO();
 		TradeListDAO tradelistDAO = new TradeListDAO();
 		
-		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
-		Date time = new Date();
-		String time1 = format1.format(time);
+	    Calendar cal =Calendar.getInstance();
+	      int second = cal.get(Calendar.YEAR); 
+	      int minute = cal.get(Calendar.MONTH) + 1 ; 
+	      int hour = cal.get(Calendar.DAY_OF_MONTH); 
+	      
+	      String s = String.valueOf(second) +"-"+String.valueOf(minute)+"-"+String.valueOf(hour);
+	      
+	      System.out.println(s);
 		
-		int returnValue2 = tradelistDAO.registrationPurchaseOrSell(time1, Integer.parseInt(txtOrder1.getText()),
-				txtTotalPurchase.getText(), purchase);
+		Inventory inven = arrayList.get(tvInventoryIndex);
+		
+		int returnValue2 = tradelistDAO.registrationPurchaseOrSell(Integer.parseInt(txtOrder1.getText()),
+				txtTotalPurchase.getText(),s, purchase, inven.getCompanyNumber(), inven.getProductNumber());
+		
+		System.out.println(txtOrder1.getText());
+		System.out.println(txtTotalPurchase.getText());
+		System.out.println(s);
+		System.out.println(purchase);
+		System.out.println(inven.getCompanyNumber());
+		System.out.println(inven.getProductNumber());
 		
 		Inventory iv = obList.get(tvInventoryIndex);
 		
@@ -715,7 +732,7 @@ public class InventoryManagementController implements Initializable{
 	//DB에서 재고 가져오기
 	private void totalLoadList() {
 		InventoryDAO inventoryDAO = new InventoryDAO();
-		ArrayList<Inventory> arrayList = inventoryDAO.getTotalLoadList();
+		arrayList = inventoryDAO.getTotalLoadList();
 		if (arrayList == null) {
 			return;
 		}
@@ -866,7 +883,6 @@ public class InventoryManagementController implements Initializable{
 		for(int i = 0; i<arrayList2.size(); i++) {
 			CompanyModel com = arrayList2.get(i);
 			cName2=com.getCompany_name();
-			System.out.println(cName2);
 			obList3.add(cName2);
 		}
 		

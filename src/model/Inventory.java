@@ -10,6 +10,7 @@ public class Inventory {
 	private String type;
 	private String color;
 	private String size;
+	private String companyNumber;
 	
 	public Inventory(String productNumber, String product, int stock, int purchase, int sell,
 			String type, String size, String color) {
@@ -38,6 +39,29 @@ public class Inventory {
 		this.companyName = companyName;
 	}
 	
+	public Inventory(String productNumber, String product, int stock, int purchase, 
+			int sell, String type, String size, String color, String companyName, String companyNumber) {
+		super();
+		this.productNumber = productNumber;
+		this.companyName = companyName;
+		this.product = product;
+		this.stock = stock;
+		this.purchase = purchase;
+		this.sell = sell;
+		this.type = type;
+		this.color = color;
+		this.size = size;
+		this.companyNumber = companyNumber;
+	}
+	
+	public String getCompanyNumber() {
+		return companyNumber;
+	}
+
+	public void setCompanyNumber(String companyNumber) {
+		this.companyNumber = companyNumber;
+	}
+
 	public String getCompanyName() {
 		return companyName;
 	}

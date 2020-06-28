@@ -62,7 +62,7 @@ public class TradeListDAO {
 	}
 
 	// 검색
-	public ArrayList<TradeListModel> TradeListFind(String companyNumber, String purchaseOrSell) {
+	public ArrayList<TradeListModel> tradeListFind(String companyName, String purchaseOrSell) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -70,15 +70,15 @@ public class TradeListDAO {
 
 		try {
 			con = DBUtil.getConnection();
-			String query = "select * from tradelistTBL where company_number like ? and production_consumption =  ?";
+			String query = "select c.no, c.order_quantity, c.total_price, c.date, c.ps, a.company_name, b.product_name, b.product_number from companyTBL a inner join  inventoryTBL b on a.company_number = b.c_cnumber_fk inner join tradelistTBL c on b.product_number = c.i_pnumber_fk where company_name like ? and ps =  ? order by date ASC";
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, "%" + companyNumber + "%");
+			pstmt.setString(1, "%" + companyName + "%");
 			pstmt.setString(2, purchaseOrSell);
 			rs = pstmt.executeQuery();
 			arrayList = new ArrayList<TradeListModel>();
 			while (rs.next()) {
-				TradeListModel tm = new TradeListModel(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),
-						rs.getString(5));
+				TradeListModel tm = new TradeListModel(rs.getInt(1), rs.getInt(2), rs.getString(3),
+						rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
 				arrayList.add(tm);
 			}
 		} catch (Exception e) {
@@ -103,14 +103,15 @@ public class TradeListDAO {
 	}
 
 	// 데이트 피커 검색
-	public ArrayList<TradeListModel> FindTradeListDate(String dateStart, String nowPurchaseOrSell) {
+	public ArrayList<TradeListModel> findTradeListDate(String dateStart, String nowPurchaseOrSell) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<TradeListModel> arrayList = null;
 		try {
 			con = DBUtil.getConnection();
-			String query = "select * from tradelistTBL where date >= ? and ps = ? order by date ASC";
+			String query = "select c.no, c.order_quantity, c.total_price, c.date, c.ps, a.company_name, b.product_name, b.product_number from companyTBL a inner join  inventoryTBL b on a.company_number = b.c_cnumber_fk inner join tradelistTBL c on b.product_number = c.i_pnumber_fk where date >= ? and ps = ? order by date ASC";
+			
 			pstmt = con.prepareStatement(query);
 
 			pstmt.setString(1, dateStart);
@@ -119,8 +120,8 @@ public class TradeListDAO {
 			arrayList = new ArrayList<TradeListModel>();
 
 			while (rs.next()) {
-				TradeListModel tm = new TradeListModel(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),
-						rs.getString(5));
+				TradeListModel tm = new TradeListModel(rs.getInt(1), rs.getInt(2), rs.getString(3),
+						rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
 				arrayList.add(tm);
 			}
 		} catch (Exception e) {
@@ -145,18 +146,20 @@ public class TradeListDAO {
 	}
 
 	// 주문,판매 등록 - 재고관리 화면에서 주문, 판매 시 tradeList에 등록 함수
-	public int registrationPurchaseOrSell(String nowDate, int quantity, String total_price, String purchaseOrSell) {
+	public int registrationPurchaseOrSell(String nowDate, int quantity, String total_price, String purchaseOrSell, String cNumber,String pNumber) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
 		try {
 			con = DBUtil.getConnection();
-			String query = "insert into tradelistTBL values(null,?,?,?,?)";
+			String query = "insert into tradelistTBL values(null,?,?,?,?,?,?)";
 			ps = con.prepareStatement(query);
 			ps.setInt(1, quantity);
 			ps.setString(2, total_price);
 			ps.setString(3, nowDate);
 			ps.setString(4, purchaseOrSell);
+			ps.setString(5, cNumber);
+			ps.setString(6, pNumber);
 
 			result = ps.executeUpdate();
 		} catch (Exception e) {

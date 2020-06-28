@@ -45,7 +45,6 @@
                         <Label layoutX="922.0" layoutY="210.0" text="재고" />
                         <Label layoutX="926.0" layoutY="408.0" text="크기" />
                         <Label layoutX="915.0" layoutY="123.0" text="업체명" />
-                        <TextField fx:id="txtCompany1" layoutX="984.0" layoutY="118.0" />
                         <TextField fx:id="txtPurchase1" layoutX="984.0" layoutY="244.0" />
                         <Label layoutX="918.0" layoutY="249.0" text="구입가" />
                         <Button fx:id="btnOk" layoutX="939.0" layoutY="448.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="210.0" text="등록" />
@@ -59,6 +58,7 @@
                         <ComboBox fx:id="cmbColor4" layoutX="985.0" layoutY="363.0" prefWidth="150.0" />
                         <ComboBox fx:id="cmbSize4" layoutX="984.0" layoutY="403.0" prefWidth="150.0" />
                         <Button fx:id="btnEdit" layoutX="938.0" layoutY="530.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="210.0" text="수정" />
+                        <ComboBox fx:id="cmbCompany4" layoutX="985.0" layoutY="118.0" prefWidth="150.0" />
                      </children></AnchorPane>
             </content>
           </Tab>

@@ -109,8 +109,6 @@ public class InventoryManagementController implements Initializable{
 	@FXML private ComboBox cmbSize3;
 	@FXML private ComboBox cmbColor3;
 	
-	
-	
 	@FXML private TableView tvInventory1;
 	@FXML private TableView tvInventory2;
 	@FXML private TableView tvInventory3;
@@ -118,7 +116,7 @@ public class InventoryManagementController implements Initializable{
 	public Stage stage;
 	private ObservableList<Inventory> obList;
 	private ObservableList<CompanyModel> obList1;
-	private int tvInventoryIndex;
+	private int tvInventoryIndex = -1;
 	private String purchase = "주문";
 	
 	public InventoryManagementController() {
@@ -634,15 +632,16 @@ public class InventoryManagementController implements Initializable{
 	//재고 리스트, DB 에서 해당 목록 삭제
 	private void handleBtnDeleteAction(ActionEvent e) {
 
+		try {
 		InventoryDAO inventoryDAO = new InventoryDAO();
 		Inventory inventory = obList.get(tvInventoryIndex);
 		String no = inventory.getProductNumber();
 
 		int returnValue = inventoryDAO.getInventoryDelete(no);
 		
+		
 		obList.remove(tvInventoryIndex);
 		
-		txtCompany1.clear();
 		txtProduct1.clear();
 		txtProductNumber1.clear();
 		txtStock1.clear();
@@ -651,6 +650,9 @@ public class InventoryManagementController implements Initializable{
 		cmbType4.getSelectionModel().clearSelection();
 		cmbColor4.getSelectionModel().clearSelection();
 		cmbSize4.getSelectionModel().clearSelection();
+		cmbCompany4.getSelectionModel().clearSelection();
+		}
+		catch(ArrayIndexOutOfBoundsException e1) {}
 		
 	}
 
@@ -671,7 +673,8 @@ public class InventoryManagementController implements Initializable{
 	
 	//검색 조건 및 리스트 초기화버튼
 	private void handleBtnReset1Action(ActionEvent e) {
-				
+		tvInventoryIndex = -1;		
+		
 		txtSearch1.clear();
 		cmbCompany1.getSelectionModel().clearSelection();
 		cmbType1.getSelectionModel().clearSelection();
@@ -695,6 +698,8 @@ public class InventoryManagementController implements Initializable{
 	}
 	
 	private void handleBtnReset2Action(ActionEvent e) {
+		tvInventoryIndex = -1;	
+		
 		txtSearch2.clear();
 		cmbCompany2.getSelectionModel().clearSelection();
 		cmbType2.getSelectionModel().clearSelection();
@@ -717,6 +722,8 @@ public class InventoryManagementController implements Initializable{
 	}
 	
 	private void handleBtnReset3Action(ActionEvent e) {
+		tvInventoryIndex = -1;	
+		
 		txtSearch3.clear();
 		cmbCompany3.getSelectionModel().clearSelection();
 		cmbType3.getSelectionModel().clearSelection();
@@ -790,9 +797,10 @@ public class InventoryManagementController implements Initializable{
 			CompanyModel com = arrayList.get(i);
 			obList1.add(com);
 		}
-		cmbCompany1.setItems(obList1);
 		
 		cmbCompany1.setPromptText("업체 선택");
+		cmbCompany1.setItems(obList1);
+		
 		cmbCompany2.setPromptText("업체 선택");
 		cmbCompany3.setPromptText("업체 선택");
 		cmbCompany4.setPromptText("업체 선택");

@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import controller.DBUtil;
+import controller.InventoryDBUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -23,7 +23,7 @@ public class InventoryDAO {
 		int returnValue = 0;
 		
 		try {
-			con=DBUtil.getConnection();
+			con=InventoryDBUtill.getConnection();
 			
 			//3.con 객체를 가지고 쿼리문을 실행가능 (select, insert, update, delete)
 			String query = "update inventoryTBL set stock =? where product_number =?";
@@ -70,7 +70,7 @@ public class InventoryDAO {
 		int returnValue = 0;
 		
 		try {
-			con=DBUtil.getConnection();
+			con=InventoryDBUtill.getConnection();
 			
 			//3.con 객체를 가지고 쿼리문을 실행가능 (select, insert, update, delete)
 			String query = "update inventoryTBL set stock =? where product_number =?";
@@ -117,7 +117,7 @@ public class InventoryDAO {
 		int returnValue =0;
 		
 		try {
-			con = DBUtil.getConnection();
+			con = InventoryDBUtill.getConnection();
 			
 			if (con != null) {
 				System.out.println("DB 연결 성공");
@@ -168,7 +168,7 @@ public class InventoryDAO {
 		ArrayList<Inventory> arrList = null;
 		
 		try {
-			con = DBUtil.getConnection();
+			con = InventoryDBUtill.getConnection();
 			
 			if (con != null) {
 				System.out.println("DB 연결 성공");
@@ -176,16 +176,18 @@ public class InventoryDAO {
 				System.out.println("DB 연결 실패");
 			}
 			
-			String query = "select * from inventoryTBL";
+			String query = "select b.product_number, a.company_name, b.product_name, \r\n" + 
+					"b.stock, b.purchase_price, b.sell_price, b.type, b.color, b.size\r\n" + 
+					"from companyTBL a, inventoryTBL b\r\n" + 
+					"where a.company_number = b.c_cnumber_fk;";
 			
 			pst = con.prepareStatement(query);
 			rs=pst.executeQuery();
 			
 			arrList=new ArrayList<Inventory>();
 			while(rs.next()) {
-				Inventory inventory = new Inventory(rs.getString(1),rs.getString(2),rs.getInt(3),
-						rs.getInt(4),rs.getInt(5),rs.getString(6),
-						rs.getString(7),rs.getString(8));
+				Inventory inventory = new Inventory(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),
+						rs.getInt(5),rs.getInt(6),rs.getString(7),rs.getString(8),rs.getString(9));
 				
 				arrList.add(inventory);
 			}
@@ -219,7 +221,7 @@ public class InventoryDAO {
 		int returnValue = 0;
 		
 		try {
-			con=DBUtil.getConnection();
+			con=InventoryDBUtill.getConnection();
 			if(con!=null) {
 				System.out.println("DB 연결 성공");
 				}else {
@@ -237,8 +239,8 @@ public class InventoryDAO {
 			pst.setInt(4, iv.getPurchase());
 			pst.setInt(5, iv.getSell());
 			pst.setString(6, iv.getType());
-			pst.setString(8, iv.getSize());
 			pst.setString(7, iv.getColor());
+			pst.setString(8, iv.getSize());
 			
 			returnValue=pst.executeUpdate();
 
@@ -283,7 +285,7 @@ public class InventoryDAO {
 		ArrayList<Inventory> arrList = null;
 		
 		try {
-			con=DBUtil.getConnection();
+			con=InventoryDBUtill.getConnection();
 			if(con!=null) {
 				System.out.println("DB 연결 성공");
 				}else {
@@ -335,7 +337,7 @@ public class InventoryDAO {
 		ArrayList<Inventory> arrList = null;
 		
 		try {
-			con=DBUtil.getConnection();
+			con=InventoryDBUtill.getConnection();
 			if(con!=null) {
 				System.out.println("DB 연결 성공");
 				}else {
@@ -387,7 +389,7 @@ public class InventoryDAO {
 		ArrayList<Inventory> arrList = null;
 		
 		try {
-			con=DBUtil.getConnection();
+			con=InventoryDBUtill.getConnection();
 			if(con!=null) {
 				System.out.println("DB 연결 성공");
 				}else {
@@ -438,7 +440,7 @@ public class InventoryDAO {
 		ResultSet rs = null;
 		
 		try {
-			con = DBUtil.getConnection();
+			con = InventoryDBUtill.getConnection();
 			
 			String query = "select * from inventoryTBL where product_number like?";
 			
@@ -484,7 +486,7 @@ public class InventoryDAO {
 		int returnValue = 0;
 		
 		try {
-			con=DBUtil.getConnection();
+			con=InventoryDBUtill.getConnection();
 			
 			String query = "update inventoryTBL set product_name =?, purchase_price=?, sell_price=?, type=?, size=?, "
 					+ "color=? where product_number =?";
@@ -529,5 +531,27 @@ public class InventoryDAO {
 		return returnValue;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

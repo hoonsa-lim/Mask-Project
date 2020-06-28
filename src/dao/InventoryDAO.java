@@ -37,18 +37,18 @@ public class InventoryDAO {
 			
 			if(returnValue!= 0) {
 				Alert alert=new Alert(AlertType.INFORMATION);
-				alert.setTitle("구매 성공");
-				alert.setHeaderText("구매 성공");
-				alert.setContentText("구매");
+				alert.setTitle("판매 성공");
+				alert.setHeaderText("판매 성공");
+				alert.setContentText("판매");
 				alert.showAndWait();
 			}else {
-				throw new Exception("구매 실패");
+				throw new Exception("판매 실패");
 			}
 			
 		} catch (Exception e1) {
 			Alert alert=new Alert(AlertType.ERROR);
-			alert.setTitle("구매 실패");
-			alert.setHeaderText("구매실패");
+			alert.setTitle("판매 실패");
+			alert.setHeaderText("판매 실패");
 			alert.setContentText("Error : "+e1.getMessage().toString());
 			alert.showAndWait();
 		}finally {
@@ -67,6 +67,7 @@ public class InventoryDAO {
 	public int getProductPurchase(Inventory iv) {
 		Connection con = null;
 		PreparedStatement pst = null;
+		
 		int returnValue = 0;
 		
 		try {
@@ -74,6 +75,7 @@ public class InventoryDAO {
 			
 			//3.con 객체를 가지고 쿼리문을 실행가능 (select, insert, update, delete)
 			String query = "update inventoryTBL set stock =? where product_number =?";
+			
 			//4.쿼리문 실행을 위한 준비
 			pst=con.prepareStatement(query);
 			
@@ -176,8 +178,8 @@ public class InventoryDAO {
 				System.out.println("DB 연결 실패");
 			}
 			
-			String query = "select b.product_number, a.company_name, b.product_name, \r\n" + 
-					"b.stock, b.purchase_price, b.sell_price, b.type, b.color, b.size\r\n" + 
+			String query = "select b.product_number, b.product_name, \r\n" + 
+					"b.stock, b.purchase_price, b.sell_price, b.type, b.size, b.color, a.company_name\r\n" + 
 					"from companyTBL a, inventoryTBL b\r\n" + 
 					"where a.company_number = b.c_cnumber_fk;";
 			
@@ -186,8 +188,8 @@ public class InventoryDAO {
 			
 			arrList=new ArrayList<Inventory>();
 			while(rs.next()) {
-				Inventory inventory = new Inventory(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),
-						rs.getInt(5),rs.getInt(6),rs.getString(7),rs.getString(8),rs.getString(9));
+				Inventory inventory = new Inventory(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getInt(4),
+						rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9));
 				
 				arrList.add(inventory);
 			}
@@ -222,13 +224,9 @@ public class InventoryDAO {
 		
 		try {
 			con=InventoryDBUtill.getConnection();
-			if(con!=null) {
-				System.out.println("DB 연결 성공");
-				}else {
-				System.out.println("DB 연결 실패");
-				}
+			
 			//3.con 객체를 가지고 쿼리문을 실행가능 (select, insert, update, delete)
-			String query = "insert into inventoryTBL values (?,?,?,?,?,?,?,?)";
+			String query = "insert into inventoryTBL values (?,?,?,?,?,?,?,?,?)";
 			
 			//4.쿼리문 실행을 위한 준비
 			pst=con.prepareStatement(query);
@@ -239,19 +237,20 @@ public class InventoryDAO {
 			pst.setInt(4, iv.getPurchase());
 			pst.setInt(5, iv.getSell());
 			pst.setString(6, iv.getType());
-			pst.setString(7, iv.getColor());
-			pst.setString(8, iv.getSize());
+			pst.setString(7, iv.getSize());
+			pst.setString(8, iv.getColor());
+			pst.setString(9, iv.getCompanyName());
 			
 			returnValue=pst.executeUpdate();
 
 			if(returnValue!= 0) {
 				Alert alert=new Alert(AlertType.INFORMATION);
-				alert.setTitle("삽입 성공");
-				alert.setHeaderText(iv.getProduct()+" 삽입 성공");
-				alert.setContentText(iv.getProduct()+" 삽입");
+				alert.setTitle("재고 등록 성공");
+				alert.setHeaderText(iv.getProduct()+" 재고 등록 성공");
+				alert.setContentText(iv.getProduct()+" 등록");
 				alert.showAndWait();
 			}else {
-				throw new Exception("삽입 불가");
+				throw new Exception("등록 오류");
 			}
 			
 		}catch (Exception e) {

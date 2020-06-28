@@ -2,6 +2,7 @@ package model;
 
 public class Inventory {
 	private String productNumber;
+	private String companyName;
 	private String product;
 	private int stock;
 	private int purchase;
@@ -9,7 +10,6 @@ public class Inventory {
 	private String type;
 	private String color;
 	private String size;
-	private String companyName;
 	
 	public Inventory(String productNumber, String product, int stock, int purchase, int sell,
 			String type, String size, String color) {
@@ -24,8 +24,8 @@ public class Inventory {
 		this.size = size;
 	}
 	
-	public Inventory(String productNumber, String companyName, String product, int stock, int purchase, int sell, String type, String color,
-			String size) {
+	public Inventory(String productNumber, String product, int stock, int purchase, 
+			int sell, String type, String size, String color, String companyName) {
 		super();
 		this.productNumber = productNumber;
 		this.product = product;
@@ -33,27 +33,17 @@ public class Inventory {
 		this.purchase = purchase;
 		this.sell = sell;
 		this.type = type;
-		this.color = color;
 		this.size = size;
+		this.color = color;
 		this.companyName = companyName;
 	}
-
 	
-
 	public String getCompanyName() {
 		return companyName;
 	}
 
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
-	}
-
-	public String getProductNumber() {
-		return productNumber;
-	}
-
-	public void setProductNumber(String productNumber) {
-		this.productNumber = productNumber;
 	}
 
 	public String getProduct() {
@@ -112,5 +102,12 @@ public class Inventory {
 		this.size = size;
 	}
 	
+	public String getProductNumber() {
+		return productNumber;
+	}
+
+	public void setProductNumber(String productNumber) {
+		this.productNumber = productNumber;
+	}
 	
 }

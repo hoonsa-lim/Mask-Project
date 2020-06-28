@@ -18,11 +18,11 @@ public class InventoryMain extends Application{
 		FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("/view/inventory_management2.fxml"));
 		Parent root=fxmlLoader.load();
 		InventoryManagementController imController=fxmlLoader.getController();
-		imController.stage=primaryStage;
+		imController.inventoryStage=primaryStage;
 		
 		Scene scene=new Scene(root);
 		//scene.getStylesheets().add("/");
-		primaryStage.setTitle("재고관리");
+		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

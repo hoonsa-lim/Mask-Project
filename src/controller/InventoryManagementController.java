@@ -2,15 +2,22 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.concurrent.Phaser;
 
+import application.CompanyMain;
+import application.InventoryMain;
+import application.TradeListMain;
 import dao.CompanyDAO;
 import dao.InventoryDAO;
+import dao.TradeListDAO;
 import javafx.stage.Stage;
 import model.CompanyModel;
 import model.Inventory;
+import model.TradeListModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -38,6 +45,7 @@ public class InventoryManagementController implements Initializable{
 	@FXML private Button btnAdmin;
 	@FXML private Button btnCompany;
 	@FXML private Button btnLogout;
+	
 	@FXML private Button btnOk;
 	@FXML private Button btnEdit;
 	@FXML private Button btnDelete;
@@ -108,25 +116,35 @@ public class InventoryManagementController implements Initializable{
 	@FXML private ComboBox cmbType3;
 	@FXML private ComboBox cmbSize3;
 	@FXML private ComboBox cmbColor3;
+	@FXML private ComboBox cmbCompany5;
 	
 	@FXML private TableView tvInventory1;
 	@FXML private TableView tvInventory2;
 	@FXML private TableView tvInventory3;
 	
-	public Stage stage;
+	public Stage inventoryStage;
 	private ObservableList<Inventory> obList;
-	private ObservableList<CompanyModel> obList1;
+	private ObservableList<String> obList1;
+	private ObservableList<String> obList3;
+	private ObservableList<CompanyModel> obList2;
 	private int tvInventoryIndex = -1;
+	private String production = "생산";
+	private String production2 = "소비";
 	private String purchase = "주문";
 	
 	public InventoryManagementController() {
-		this.stage = null;
+		this.inventoryStage = null;
 		this.obList = FXCollections.observableArrayList();
 		this.obList1 = FXCollections.observableArrayList();
+		this.obList3 = FXCollections.observableArrayList();
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		//다른 화면으로 이동 버튼
+		btnCompany.setOnAction(e-> handleBtnCompanyAction());
+		btnTrade.setOnAction(e-> handleBtnTradeAction());
+		
 		//탭 이동시 리스트 초기화
 		tabInventory.setOnSelectionChanged(e-> selectTabInventoryAction());
 		tabPurchase.setOnSelectionChanged(e-> selectTabPurchaseAction());
@@ -180,6 +198,23 @@ public class InventoryManagementController implements Initializable{
 		btnReset3.setOnAction(e-> handleBtnReset3Action(e)); // 판매 화면 초기화 버튼
 		
 	}//initialize
+
+	//거래 내역 화면으로 이동 버튼
+	private void handleBtnTradeAction() {
+		try {
+			new TradeListMain().start(inventoryStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	//업체 관리 화면으로 이동 버튼
+	private void handleBtnCompanyAction() {
+		try {
+			new CompanyMain().start(inventoryStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
 	//탭 선택시 리스트 초기화 이벤트
 	private void selectTabInventoryAction() {
@@ -265,25 +300,36 @@ public class InventoryManagementController implements Initializable{
 			obList.set(tvInventoryIndex, iv);
 			inventoryDAO.getTotalLoadList();
 		}
+		handleBtnReset1Action(e);
 	}
 	//구매 버튼 이벤트
 	private void handleBtnPurchaseAction(ActionEvent e) {
 		InventoryDAO inventoryDAO = new InventoryDAO();
+		TradeListDAO tradelistDAO = new TradeListDAO();
+		
+		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
+		Date time = new Date();
+		String time1 = format1.format(time);
+		
+		int returnValue2 = tradelistDAO.registrationPurchaseOrSell(time1, Integer.parseInt(txtOrder1.getText()),
+				txtTotalPurchase.getText(), purchase);
+		
 		Inventory iv = obList.get(tvInventoryIndex);
 		
 		int currentStock = iv.getStock();
 		int pOrder = Integer.parseInt(txtOrder1.getText());
-		
 		int editStock = (currentStock + pOrder);
 		
 		iv.setStock(editStock);
 		
 		int returnValue = inventoryDAO.getProductPurchase(iv);
 		
-		if (returnValue != 0) {
+		if (returnValue != 0 && returnValue2 != 0) {
 			obList.set(tvInventoryIndex, iv);
 			inventoryDAO.getTotalLoadList();
 		}
+		
+		handleBtnReset1Action(e);
 	}
 
 	//판매 총액 계산 이벤트
@@ -538,14 +584,19 @@ public class InventoryManagementController implements Initializable{
 		Inventory iv = null;
 		
 	try {
-		iv = new Inventory(txtProductNumber1.getText(),txtProduct1.getText(),
+		iv = new Inventory(txtProductNumber1.getText(), txtProduct1.getText(),
 				Integer.parseInt(txtStock1.getText()),Integer.parseInt(txtPurchase1.getText()),
 				Integer.parseInt(txtSell1.getText()),
 				cmbType4.getSelectionModel().getSelectedItem().toString()
+				,cmbSize4.getSelectionModel().getSelectedItem().toString()
 				,cmbColor4.getSelectionModel().getSelectedItem().toString()
-				,cmbSize4.getSelectionModel().getSelectedItem().toString());
+				,cmbCompany4.getSelectionModel().getSelectedItem().toString());
+		
+		handleBtnReset1Action(e);
 	}catch(Exception e1) {}
+	
 	int returnValue = inventoryDAO.getInventoryRegist(iv);
+	
 	if (returnValue != 0) {
 		obList.clear();
 		totalLoadList();
@@ -583,6 +634,7 @@ public class InventoryManagementController implements Initializable{
 		txtStock1.setText(String.valueOf(inventory.getStock()));
 		txtPurchase1.setText(String.valueOf(inventory.getPurchase()));
 		txtSell1.setText(String.valueOf(inventory.getSell()));
+		
 		cmbCompany4.getSelectionModel().select(inventory.getCompanyName());
 		cmbType4.getSelectionModel().select(inventory.getType());
 		cmbColor4.getSelectionModel().select(inventory.getColor());
@@ -600,6 +652,7 @@ public class InventoryManagementController implements Initializable{
 			Inventory inventory = obList.get(tvInventoryIndex);
 			
 			txtProductNumber2.setText(String.valueOf(inventory.getProductNumber()));
+			txtCompany2.setText(inventory.getCompanyName());
 			txtProduct2.setText(inventory.getProduct());
 			txtStock2.setText(String.valueOf(inventory.getStock()));
 			txtPurchase2.setText(String.valueOf(inventory.getPurchase()));
@@ -618,6 +671,7 @@ public class InventoryManagementController implements Initializable{
 		Inventory inventory = obList.get(tvInventoryIndex);
 		
 		txtProductNumber3.setText(String.valueOf(inventory.getProductNumber()));
+		txtCompany3.setText(inventory.getCompanyName());
 		txtProduct3.setText(inventory.getProduct());
 		txtStock3.setText(String.valueOf(inventory.getStock()));
 		txtSell2.setText(String.valueOf(inventory.getSell()));
@@ -654,6 +708,8 @@ public class InventoryManagementController implements Initializable{
 		}
 		catch(ArrayIndexOutOfBoundsException e1) {}
 		
+		obList.clear();
+		totalLoadList();
 	}
 
 	//DB에서 재고 가져오기
@@ -687,7 +743,7 @@ public class InventoryManagementController implements Initializable{
 		txtPurchase1.clear();
 		txtSell1.clear();
 		
-		cmbCompany4.getPromptText();
+		cmbCompany4.getSelectionModel().clearSelection();
 		cmbType4.getSelectionModel().clearSelection();
 		cmbColor4.getSelectionModel().clearSelection();
 		cmbSize4.getSelectionModel().clearSelection();
@@ -789,22 +845,45 @@ public class InventoryManagementController implements Initializable{
 	private void companyComboBoxList() {
 		CompanyDAO companyDAO = new CompanyDAO();
 		
-		ArrayList<CompanyModel> arrayList = companyDAO.companyListUp(purchase);
+		ArrayList<CompanyModel> arrayList = companyDAO.companyListUp(production);
+		String cName =null;
 		if(arrayList == null) {
 			return;
 		}
+		System.out.println(arrayList.toString());
 		for(int i = 0; i<arrayList.size(); i++) {
 			CompanyModel com = arrayList.get(i);
-			obList1.add(com);
+			cName=com.getCompany_name();
+			obList1.add(cName);
+		}
+		
+		ArrayList<CompanyModel> arrayList2 = companyDAO.companyListUp(production2);
+		String cName2 = null;
+		if(arrayList2 == null) {
+			return;
+		}
+		System.out.println(arrayList2.toString());
+		for(int i = 0; i<arrayList2.size(); i++) {
+			CompanyModel com = arrayList2.get(i);
+			cName2=com.getCompany_name();
+			System.out.println(cName2);
+			obList3.add(cName2);
 		}
 		
 		cmbCompany1.setPromptText("업체 선택");
 		cmbCompany1.setItems(obList1);
 		
 		cmbCompany2.setPromptText("업체 선택");
+		cmbCompany2.setItems(obList1);
+		
 		cmbCompany3.setPromptText("업체 선택");
+		cmbCompany3.setItems(obList1);
+		
 		cmbCompany4.setPromptText("업체 선택");
+		cmbCompany4.setItems(obList1);
 
+		cmbCompany5.setPromptText("판매처 선택");
+		cmbCompany5.setItems(obList3);
 	}
 	
 	
@@ -860,7 +939,7 @@ public class InventoryManagementController implements Initializable{
 		
 		TableColumn colCompany=new TableColumn("업체명");
 		colCompany.setPrefWidth(190.0);
-		colCompany.setCellValueFactory(new PropertyValueFactory<>("company"));
+		colCompany.setCellValueFactory(new PropertyValueFactory<>("companyName"));
 		
 		TableColumn colProduct=new TableColumn("제품명");
 		colProduct.setPrefWidth(240.0);
@@ -900,7 +979,7 @@ public class InventoryManagementController implements Initializable{
 		
 		TableColumn colCompany=new TableColumn("업체명");
 		colCompany.setPrefWidth(190.0);
-		colCompany.setCellValueFactory(new PropertyValueFactory<>("company"));
+		colCompany.setCellValueFactory(new PropertyValueFactory<>("companyName"));
 		
 		TableColumn colProduct=new TableColumn("제품명");
 		colProduct.setPrefWidth(240.0);

@@ -51,6 +51,8 @@ public class CompanyDAO {
 					ps.close();
 				if (con != null)
 					con.close();
+				if (rs != null)
+					rs.close();
 			} catch (SQLException e) {
 			}
 		}
@@ -95,6 +97,8 @@ public class CompanyDAO {
 					ps.close();
 				if (con != null)
 					con.close();
+				if (rs != null)
+					rs.close();
 			} catch (SQLException e) {
 			}
 		}

@@ -7,6 +7,8 @@ import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import application.InventoryMain;
+import application.TradeListMain;
 import dao.CompanyDAO;
 import dao.TradeListDAO;
 import javafx.collections.FXCollections;
@@ -89,6 +91,8 @@ public class TradeList_Management_Controller implements Initializable {
 		btnSellTab.setOnAction(event -> tableViewtradeListInit(sell)); // 소비업체 버튼 클릭 시 tableView에 소비업체 초기화
 		btnReset.setOnAction(event -> handelBtnSearchAction()); // 리셋(초기화) 버튼 이벤트
 		dpkStart.setOnAction(event -> handleBtnDateSearchAction()); // 선택 날짜 기준 내림차순
+		btnInventory.setOnAction(event -> handleBtnInventoryAction());
+		btnCompany.setOnAction(event -> handleBtnCompanyAction());
 	}
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@핸들러 등록
@@ -198,5 +202,22 @@ public class TradeList_Management_Controller implements Initializable {
 		// 현재 tableView 에 보여지는 리스트가 판매인가, 주문인가
 		TradeListModel tm = obsListTrade.get(0);
 		nowPurchaseOrSell = tm.getPurchaseOrSell();
+	}
+	
+	// 재고 관리 화면으로 이동
+	private void handleBtnInventoryAction() {
+		try {
+			new InventoryMain().start(tradeStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	// 업체 관리 화면으로 이동
+	private void handleBtnCompanyAction() {
+		try {
+			new TradeListMain().start(tradeStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }

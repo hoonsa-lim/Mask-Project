@@ -163,7 +163,7 @@ public class TradeListDAO {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("에러");
 			alert.setHeaderText("DB접속 또는 쿼리문 실행 또는 result 값을 return받는 과정에서 오류 발생");
-			alert.setContentText("registrationPurchaseOrSell() \n" + e.getStackTrace());
+			alert.setContentText("registrationPurchaseOrSell() \n" + e.getMessage());
 			alert.showAndWait();
 		} finally {
 			try {

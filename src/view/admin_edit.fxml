@@ -9,6 +9,7 @@
 
 <AnchorPane prefHeight="632.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+<<<<<<< HEAD
       <Button id="btnSave" layoutX="134.0" layoutY="580.0" mnemonicParsing="false" text="저장" />
       <Button id="btnClose" layoutX="322.0" layoutY="580.0" mnemonicParsing="false" text="닫기" />
       <Label layoutX="58.0" layoutY="158.0" text="성함" />
@@ -33,5 +34,20 @@
       <Label layoutX="59.0" layoutY="467.0" text="답변" />
       <TextField id="txtAnswer" layoutX="139.0" layoutY="462.0" prefHeight="29.0" prefWidth="300.0" />
       <Button id="btnAnswerClear" layoutX="438.0" layoutY="462.0" mnemonicParsing="false" opacity="0.7" text="X" />
+=======
+      <Button layoutX="336.0" layoutY="14.0" mnemonicParsing="false" text="삭제" />
+      <Button layoutX="276.0" layoutY="14.0" mnemonicParsing="false" text="저장" />
+      <Button layoutX="216.0" layoutY="14.0" mnemonicParsing="false" text="닫기" />
+      <Label layoutX="88.0" layoutY="116.0" text="사번" />
+      <TextField disable="true" layoutX="173.0" layoutY="111.0" />
+      <Label layoutX="88.0" layoutY="204.0" text="이름" />
+      <TextField disable="true" layoutX="173.0" layoutY="199.0" />
+      <Label layoutX="88.0" layoutY="299.0" text="연락처" />
+      <TextField layoutX="173.0" layoutY="294.0" />
+      <Label layoutX="88.0" layoutY="386.0" text="비밀번호" />
+      <TextField layoutX="173.0" layoutY="381.0" />
+      <Label layoutX="81.0" layoutY="469.0" text="재직여부" />
+      <TextField layoutX="173.0" layoutY="464.0" />
+>>>>>>> master
    </children>
 </AnchorPane>

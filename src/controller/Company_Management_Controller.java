@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javax.security.auth.callback.ConfirmationCallback;
 
 import application.InventoryMain;
+import application.ReportMain;
 import application.TradeListMain;
 import dao.CompanyDAO;
 import dao.TradeListDAO;
@@ -125,7 +126,7 @@ public class Company_Management_Controller implements Initializable {
 //		btnAdmin.setOnAction(event -> handleBtnAdminAction());// 관리자 화면으로 이동
 		btnInventory.setOnAction(event -> handleBtnInventoryAction());// 재고관리 화면으로 이동
 		btnTrade.setOnAction(event -> handleBtnTradeAction());// 거래내역 화면으로 이동
-//		btnReport.setOnAction(event -> handleBtnReportAction());// 보고서 화면으로 이동
+		btnReport.setOnAction(event -> handleBtnReportAction());// 보고서 화면으로 이동
 	}
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@핸들러 등록
@@ -234,7 +235,7 @@ public class Company_Management_Controller implements Initializable {
 		btnCheck.setDisable(true);
 		btnNameClear.setDisable(true);
 		btnNumClear.setDisable(true);
-		
+
 		// radioButton 그룹생성
 		ToggleGroup contractGroup = new ToggleGroup();
 		rdoContract.setToggleGroup(contractGroup);
@@ -662,12 +663,12 @@ public class Company_Management_Controller implements Initializable {
 		}
 	}
 
-	// 보고서 화면으로 이동
-//	private void handleBtnReportAction() {
-//		try {
-//			new ReportMain().start(primaryStage);
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//	}
+//	 보고서 화면으로 이동
+	private void handleBtnReportAction() {
+		try {
+			new ReportMain().start(primaryStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 }

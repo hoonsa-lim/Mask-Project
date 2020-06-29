@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="632.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="312.0" layoutY="43.0" mnemonicParsing="false" text="삭제" />
-      <Button layoutX="93.0" layoutY="542.0" mnemonicParsing="false" text="저장" />
-      <Button layoutX="268.0" layoutY="542.0" mnemonicParsing="false" text="닫기" />
-      <Label layoutX="82.0" layoutY="114.0" text="사번" />
-      <TextField disable="true" layoutX="167.0" layoutY="109.0" />
-      <Label layoutX="82.0" layoutY="202.0" text="이름" />
-      <TextField disable="true" layoutX="167.0" layoutY="197.0" />
-      <Label layoutX="78.0" layoutY="287.0" text="연락처" />
-      <TextField layoutX="167.0" layoutY="282.0" />
-      <Label layoutX="73.0" layoutY="374.0" text="비밀번호" />
-      <TextField layoutX="167.0" layoutY="369.0" />
-      <Label layoutX="75.0" layoutY="457.0" text="재직여부" />
-      <TextField layoutX="167.0" layoutY="452.0" />
+      <Button id="btnSave" layoutX="134.0" layoutY="580.0" mnemonicParsing="false" text="저장" />
+      <Button id="btnClose" layoutX="322.0" layoutY="580.0" mnemonicParsing="false" text="닫기" />
+      <Label layoutX="58.0" layoutY="158.0" text="성함" />
+      <TextField id="txtName" layoutX="139.0" layoutY="153.0" prefHeight="29.0" prefWidth="300.0" />
+      <Label layoutX="43.0" layoutY="67.0" text="사원번호" />
+      <TextField id="txtNumber" layoutX="143.0" layoutY="62.0" prefHeight="29.0" prefWidth="220.0" />
+      <Label layoutX="51.0" layoutY="248.0" text="연락처" />
+      <TextField id="txtPhone" layoutX="139.0" layoutY="243.0" prefHeight="29.0" prefWidth="300.0" />
+      <Label layoutX="43.0" layoutY="329.0" text="비밀번호" />
+      <TextField id="txtPassword" layoutX="139.0" layoutY="324.0" prefHeight="29.0" prefWidth="300.0" />
+      <Label layoutX="26.0" layoutY="400.0" text="본인확인 질문" />
+      <RadioButton id="rdoContract" layoutX="209.0" layoutY="528.0" mnemonicParsing="false" text="재직중" />
+      <RadioButton id="rdoEndContract" layoutX="320.0" layoutY="528.0" mnemonicParsing="false" text="퇴사" />
+      <Label layoutX="99.0" layoutY="528.0" text="재직여부" />
+      <Button id="btnCheck" layoutX="362.0" layoutY="62.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="83.0" text="중복확인" />
+      <Button id="btnNameClear" layoutX="438.0" layoutY="153.0" mnemonicParsing="false" opacity="0.7" text="X" />
+      <Button id="btnPhoneClear" layoutX="438.0" layoutY="243.0" mnemonicParsing="false" opacity="0.7" text="X" />
+      <Button id="btnPasswordClear" layoutX="438.0" layoutY="324.0" mnemonicParsing="false" opacity="0.7" text="X" />
+      <Button id="btnQClear" layoutX="438.0" layoutY="395.0" mnemonicParsing="false" opacity="0.7" text="X" />
+      <Button id="btnNumClear" layoutX="442.0" layoutY="62.0" mnemonicParsing="false" opacity="0.7" text="X" />
+      <ComboBox id="cmbQuestion" layoutX="139.0" layoutY="395.0" prefHeight="29.0" prefWidth="300.0" />
+      <Label layoutX="59.0" layoutY="467.0" text="답변" />
+      <TextField id="txtAnswer" layoutX="139.0" layoutY="462.0" prefHeight="29.0" prefWidth="300.0" />
+      <Button id="btnAnswerClear" layoutX="438.0" layoutY="462.0" mnemonicParsing="false" opacity="0.7" text="X" />
    </children>
 </AnchorPane>

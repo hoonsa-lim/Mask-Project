@@ -2,10 +2,11 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane prefHeight="900.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TradeList_Management_Controller">
    <children>
@@ -20,10 +21,21 @@
       <Button fx:id="btnRegisteration" layoutX="1169.0" layoutY="173.0" mnemonicParsing="false" text="등록" />
       <Button fx:id="btnEdit" layoutX="1109.0" layoutY="173.0" mnemonicParsing="false" text="수정" />
       <TableView fx:id="tlvTradeList" layoutX="59.0" layoutY="216.0" prefHeight="640.0" prefWidth="1162.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="LIGHTGRAY" height="39.0" layoutX="47.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1190.0" />
-      <Button fx:id="btnSellTab" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="104.0" layoutY="122.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="50.0" text="판매" />
-      <Button fx:id="btnPurchaseTab" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="53.0" layoutY="122.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="50.0" text="주문" />
       <Button fx:id="btnReset" layoutX="622.0" layoutY="173.0" mnemonicParsing="false" text="초기화" />
       <DatePicker fx:id="dpkStart" layoutX="59.0" layoutY="173.0" prefHeight="29.0" prefWidth="170.0" promptText="거래 날짜" />
+      <TabPane layoutX="45.0" layoutY="116.0" prefHeight="39.0" prefWidth="1190.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="btnPurchaseTab" text="주문">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab fx:id="btnSellTab" text="판매">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

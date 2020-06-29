@@ -100,7 +100,7 @@ public class Admin_Management_Controller implements Initializable {
 		// 초기 세팅 함수
 		cmbContractInitialize();// 콤보박스 초기값 입력 함수
 		tableViewColumnInit();// tableView 칼럼 초기화 함수
-		tableViewListInit(product);// '업체관리' 버튼 클릭 시 tableView에 생산업체 초기화
+		tableViewListInit();// '관리자' 버튼 클릭 시 tableView에 생산업체 초기화
 		searchAndComboboxReset();// 리셋(초기화) 함수 (콤보박스, 검색창)
 
 		// 버튼 이벤트

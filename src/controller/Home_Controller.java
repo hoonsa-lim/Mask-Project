@@ -7,8 +7,10 @@ import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import application.AdminMain;
 import application.CompanyMain;
 import application.InventoryMain;
+import application.ReportMain;
 import application.TradeListMain;
 import dao.CompanyDAO;
 import dao.TradeListDAO;
@@ -60,9 +62,9 @@ public class Home_Controller implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		btnCompany.setOnAction(event -> handleLoadCompanyStageAction()); // load company
 		btnTrade.setOnAction(event -> handleLoadTradeStageAction());// load Trade
-		btnInventory.setOnAction(event ->  handleLoadInventoryStageAction());//load Inventory
-//		btnReport.setOnAction(event ->  handleLoadReportStageAction());//load Report
-//		btnAdmin.setOnAction(event ->  handleLoadAdminStageAction());//load Admin
+		btnInventory.setOnAction(event -> handleLoadInventoryStageAction());// load Inventory
+		btnReport.setOnAction(event -> handleLoadReportStageAction());// load Report
+		btnAdmin.setOnAction(event ->  handleLoadAdminStageAction());//load Admin
 //		btnLogout.setOnAction(event ->  handleLoadLogoutStageAction());//load Logout
 	}
 
@@ -97,20 +99,21 @@ public class Home_Controller implements Initializable {
 	}
 
 	// load Report
-//		private void handleLoadReportStageAction() {
-//			try {
-//				new ReportMain().start(newStage);
-//			} catch (Exception e) {}
-//	stage.close();
-//		}
+	private void handleLoadReportStageAction() {
+		try {
+			new ReportMain().start(newStage);
+		} catch (Exception e) {
+		}
+		stage.close();
+	}
 
 	// load Admin
-//		private void handleLoadAdminStageAction() {
-//			try {
-//				new AdminMain().start(newStage);
-//			} catch (Exception e) {}
-//	stage.close();
-//		}
+		private void handleLoadAdminStageAction() {
+			try {
+				new AdminMain().start(newStage);
+			} catch (Exception e) {}
+	stage.close();
+		}
 
 	// load Logout
 //	private void handleLoadLogoutStageAction() {

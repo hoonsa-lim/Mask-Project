@@ -49,11 +49,7 @@
                         <Label layoutX="918.0" layoutY="249.0" text="구입가" />
                         <Button fx:id="btnOk" layoutX="939.0" layoutY="448.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="210.0" text="등록" />
                         <Button fx:id="btnDelete" layoutX="935.0" layoutY="609.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="219.0" text="삭제" />
-                        <ComboBox fx:id="cmbCompany1" layoutX="340.0" layoutY="14.0" prefWidth="150.0" />
-                        <ComboBox fx:id="cmbType1" layoutX="508.0" layoutY="14.0" prefWidth="150.0" />
-                        <ComboBox fx:id="cmbSize1" layoutX="821.0" layoutY="14.0" prefWidth="150.0" />
-                        <ComboBox fx:id="cmbColor1" layoutX="665.0" layoutY="14.0" prefWidth="150.0" />
-                        <Button fx:id="btnReset1" layoutX="1010.0" layoutY="14.0" mnemonicParsing="false" text="초기화" />
+                        <Button fx:id="btnReset1" layoutX="336.0" layoutY="14.0" mnemonicParsing="false" text="초기화" />
                         <ComboBox fx:id="cmbType4" layoutX="985.0" layoutY="325.0" prefWidth="150.0" />
                         <ComboBox fx:id="cmbColor4" layoutX="985.0" layoutY="363.0" prefWidth="150.0" />
                         <ComboBox fx:id="cmbSize4" layoutX="984.0" layoutY="403.0" prefWidth="150.0" />
@@ -67,7 +63,7 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <TableView fx:id="tvInventory2" layoutX="14.0" layoutY="58.0" prefHeight="629.0" prefWidth="873.0" />
-                        <Button fx:id="btnSearch2" layoutX="272.0" layoutY="14.0" mnemonicParsing="false" text="검색" />
+                        <Button fx:id="btnSearch2" layoutX="264.0" layoutY="14.0" mnemonicParsing="false" text="검색" />
                         <TextField fx:id="txtSearch2" layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="250.0" promptText="제품 코드 입력" />
                         <Button fx:id="btnPurchase" layoutX="912.0" layoutY="588.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="244.0" text="주문" />
                         <Label layoutX="908.0" layoutY="106.0" text="업체명" />
@@ -92,11 +88,7 @@
                         <Label layoutX="912.0" layoutY="511.0" text="총 금액" />
                         <TextField fx:id="txtTotalPurchase" layoutX="996.0" layoutY="506.0" prefHeight="29.0" prefWidth="137.0" />
                         <Button fx:id="btnCal1" layoutX="1119.0" layoutY="462.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="51.0" text="계산" />
-                        <ComboBox fx:id="cmbCompany2" layoutX="339.0" layoutY="14.0" prefWidth="150.0" />
-                        <ComboBox fx:id="cmbColor2" layoutX="831.0" layoutY="14.0" prefWidth="150.0" />
-                        <ComboBox fx:id="cmbSize2" layoutX="665.0" layoutY="14.0" prefWidth="150.0" />
-                        <ComboBox fx:id="cmbType2" layoutX="499.0" layoutY="14.0" prefWidth="150.0" />
-                        <Button fx:id="btnReset2" layoutX="996.0" layoutY="14.0" mnemonicParsing="false" text="초기화" />
+                        <Button fx:id="btnReset2" layoutX="327.0" layoutY="14.0" mnemonicParsing="false" text="초기화" />
                      </children>
                   </AnchorPane>
                </content>
@@ -109,7 +101,7 @@
                         <TextField fx:id="txtCompany3" layoutX="962.0" layoutY="106.0" prefHeight="29.0" prefWidth="201.0" />
                         <Label layoutX="909.0" layoutY="111.0" prefHeight="18.0" prefWidth="45.0" text="업체명" />
                         <TextField fx:id="txtSearch3" layoutX="14.0" layoutY="15.0" prefHeight="29.0" prefWidth="250.0" promptText="제품 코드 입력" />
-                        <Button fx:id="btnSearch3" layoutX="277.0" layoutY="15.0" mnemonicParsing="false" text="검색" />
+                        <Button fx:id="btnSearch3" layoutX="264.0" layoutY="15.0" mnemonicParsing="false" text="검색" />
                         <Button fx:id="btnSell" layoutX="921.0" layoutY="594.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="244.0" text="판매" />
                         <Label layoutX="909.0" layoutY="156.0" prefHeight="18.0" prefWidth="45.0" text="제품명" />
                         <TextField fx:id="txtProduct3" layoutX="962.0" layoutY="151.0" prefHeight="29.0" prefWidth="201.0" />
@@ -131,11 +123,7 @@
                         <TextField fx:id="txtTotalSell" layoutX="992.0" layoutY="552.0" prefHeight="29.0" prefWidth="156.0" />
                         <Label layoutX="911.0" layoutY="557.0" prefHeight="19.0" prefWidth="55.0" text="총 금액" />
                         <Button fx:id="btnCal2" layoutX="1127.0" layoutY="514.0" mnemonicParsing="false" text="계산" />
-                        <ComboBox fx:id="cmbCompany3" layoutX="342.0" layoutY="15.0" prefWidth="150.0" />
-                        <ComboBox fx:id="cmbColor3" layoutX="825.0" layoutY="15.0" prefWidth="150.0" />
-                        <ComboBox fx:id="cmbSize3" layoutX="665.0" layoutY="15.0" prefWidth="150.0" />
-                        <ComboBox fx:id="cmbType3" layoutX="502.0" layoutY="15.0" prefWidth="150.0" />
-                        <Button fx:id="btnReset3" layoutX="984.0" layoutY="15.0" mnemonicParsing="false" text="초기화" />
+                        <Button fx:id="btnReset3" layoutX="333.0" layoutY="15.0" mnemonicParsing="false" text="초기화" />
                         <ComboBox fx:id="cmbCompany5" layoutX="988.0" layoutY="470.0" prefWidth="150.0" promptText="판매처 선택" />
                         <Label layoutX="912.0" layoutY="475.0" text="판매처" />
                      </children>

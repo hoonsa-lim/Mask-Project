@@ -9,6 +9,8 @@ public class CompanyModel {
 	private String address;
 	private String production_consumption;
 	
+	
+	
 	public CompanyModel(String company_number, String company_name, String manager, String manager_phone,
 			String contract, String address, String production_consumption) {
 		super();

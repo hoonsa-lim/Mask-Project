@@ -43,16 +43,21 @@ public class Inventory {
 			int sell, String type, String size, String color, String companyName, String companyNumber) {
 		super();
 		this.productNumber = productNumber;
-		this.companyName = companyName;
 		this.product = product;
 		this.stock = stock;
 		this.purchase = purchase;
 		this.sell = sell;
 		this.type = type;
-		this.color = color;
 		this.size = size;
+		this.color = color;
+		this.companyName = companyName;
 		this.companyNumber = companyNumber;
 	}
+	
+	public Inventory(String type, String size) {
+		this.type = type;
+		this.size = size;
+		}
 	
 	public String getCompanyNumber() {
 		return companyNumber;

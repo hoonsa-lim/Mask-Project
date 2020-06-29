@@ -98,9 +98,6 @@ public class InventoryManagementController implements Initializable{
 	
 	//재고 탭 콤보박스
 	@FXML private ComboBox cmbCompany1;
-	@FXML private ComboBox cmbType1;
-	@FXML private ComboBox cmbSize1;
-	@FXML private ComboBox cmbColor1;
 	@FXML private ComboBox cmbType4;
 	@FXML private ComboBox cmbColor4;
 	@FXML private ComboBox cmbSize4;
@@ -125,20 +122,26 @@ public class InventoryManagementController implements Initializable{
 	
 	public Stage inventoryStage;
 	private ObservableList<Inventory> obList;
+	private ObservableList<Inventory> obList2;
 	private ObservableList<String> obList1;
 	private ObservableList<String> obList3;
-	private ObservableList<CompanyModel> obList2;
+	private ObservableList<CompanyModel> obList4;
+	private ObservableList<CompanyModel> obList5;
 	private int tvInventoryIndex = -1;
+	private int cmbselect = 0;
 	private String production = "생산";
 	private String production2 = "소비";
 	private String purchase = "주문";
+	private String sell = "판매";
 	private ArrayList<Inventory> arrayList = null;
 	
 	public InventoryManagementController() {
 		this.inventoryStage = null;
 		this.obList = FXCollections.observableArrayList();
 		this.obList1 = FXCollections.observableArrayList();
+		this.obList2 = FXCollections.observableArrayList();
 		this.obList3 = FXCollections.observableArrayList();
+		this.obList5 = FXCollections.observableArrayList();
 		this.arrayList = new ArrayList<Inventory>();
 	}
 
@@ -153,31 +156,18 @@ public class InventoryManagementController implements Initializable{
 		tabPurchase.setOnSelectionChanged(e-> selectTabPurchaseAction());
 		tabSell.setOnSelectionChanged(e-> selectTabSellAction());
 		
-		//재고 리스트 정렬 (타입,색상,사이즈)
-		cmbType1.setOnAction(e-> tvInventory1TypeSort());
-		cmbColor1.setOnAction(e-> tvInventory1ColorSort());
-		cmbSize1.setOnAction(e-> tvInventory1SizeSort());
-		
-		//주문 리스트 정렬(타입,색상,사이즈)
-		cmbType2.setOnAction(e-> tvInventory2TypeSort());
-		cmbColor2.setOnAction(e-> tvInventory2ColorSort());
-		cmbSize2.setOnAction(e-> tvInventory2SizeSort());
-		
-		//판매 리스트 정렬(타입,색상,사이즈)
-		cmbType3.setOnAction(e-> tvInventory3TypeSort());
-		cmbColor3.setOnAction(e-> tvInventory3ColorSort());
-		cmbSize3.setOnAction(e-> tvInventory3SizeSort());
-		
-		companyComboBoxList(); //업체 선택
-		typeComboBoxList(); //마스크 타입 선택
-		sizeComboBoxList(); //마스크 사이즈 선택
-		colorComboBoxList(); //마스크 색상 선택
-		
 		tvInventory1Column(); //재고 리스트 컬럼
 		tvInventory2Column(); //주문 리스트 컬럼
 		tvInventory3Column(); //판매 리스트 컬럼
 		
 		totalLoadList(); //전체 재고 리스트
+		
+		companyComboBoxList();
+		typeComboBoxList();
+		colorComboBoxList();
+		sizeComboBoxList();
+		
+		cmbCompany4.setOnAction(e-> cmbselect = cmbCompany4.getSelectionModel().getSelectedIndex());
 		
 		//목록 클릭시 이벤트
 		tvInventory1.setOnMouseClicked(e-> handleTvinventory1MouseClicked(e)); 
@@ -202,6 +192,21 @@ public class InventoryManagementController implements Initializable{
 		
 	}//initialize
 
+	private void sizeComboBoxList() {
+		cmbSize4.setItems(FXCollections.observableArrayList("성인용", "어린이용"));
+		cmbSize4.setPromptText("사이즈 선택");
+	}
+
+	private void colorComboBoxList() {
+		cmbColor4.setItems(FXCollections.observableArrayList("흰색", "검정색"));
+		cmbColor4.setPromptText("색상 선택");
+	}
+
+	private void typeComboBoxList() {
+		cmbType4.setItems(FXCollections.observableArrayList("KF80", "KF94", "덴탈 마스크", "면 마스크"));
+		cmbType4.setPromptText("종류 선택");
+	}
+
 	//거래 내역 화면으로 이동 버튼
 	private void handleBtnTradeAction() {
 		try {
@@ -222,11 +227,7 @@ public class InventoryManagementController implements Initializable{
 	//탭 선택시 리스트 초기화 이벤트
 	private void selectTabInventoryAction() {
 		txtSearch1.clear();
-		cmbCompany1.getSelectionModel().clearSelection();
-		cmbType1.getSelectionModel().clearSelection();
-		cmbColor1.getSelectionModel().clearSelection();
-		cmbSize1.getSelectionModel().clearSelection();
-		
+	
 		txtProduct1.clear();
 		txtProductNumber1.clear();
 		txtStock1.clear();
@@ -243,10 +244,6 @@ public class InventoryManagementController implements Initializable{
 	}
 	private void selectTabPurchaseAction() {
 		txtSearch2.clear();
-		cmbCompany2.getSelectionModel().clearSelection();
-		cmbType2.getSelectionModel().clearSelection();
-		cmbColor2.getSelectionModel().clearSelection();
-		cmbSize2.getSelectionModel().clearSelection();
 		
 		txtCompany2.clear();
 		txtProduct2.clear();
@@ -264,10 +261,6 @@ public class InventoryManagementController implements Initializable{
 	}
 	private void selectTabSellAction() {
 		txtSearch3.clear();
-		cmbCompany3.getSelectionModel().clearSelection();
-		cmbType3.getSelectionModel().clearSelection();
-		cmbColor3.getSelectionModel().clearSelection();
-		cmbSize3.getSelectionModel().clearSelection();
 		cmbCompany5.getSelectionModel().clearSelection();
 		
 		txtCompany3.clear();
@@ -289,33 +282,44 @@ public class InventoryManagementController implements Initializable{
 	//판매 버튼 이벤트
 	private void handleBtnSellAction(ActionEvent e) {
 		InventoryDAO inventoryDAO = new InventoryDAO();
+		TradeListDAO tradelistDAO = new TradeListDAO();
 		Inventory iv = obList.get(tvInventoryIndex);
 		
 		int returnValue=0;
 		int currentStock = iv.getStock();
 		int sOrder = Integer.parseInt(txtOrder2.getText());
-		
+	     
 		if(currentStock < 10) {
 			Alert alert = new Alert(AlertType.ERROR);
 	         alert.setTitle("에러");
 	         alert.setHeaderText("재고가 부족합니다");
 	         alert.setContentText("재고 주문 필요");
 	         alert.showAndWait();
+	         return;
 		}
-		else {
+		
+		Calendar cal =Calendar.getInstance();
+	     int second = cal.get(Calendar.YEAR); 
+	     int minute = cal.get(Calendar.MONTH) + 1 ; 
+	     int hour = cal.get(Calendar.DAY_OF_MONTH); 
+	      
+	     String s = String.valueOf(second) +"-"+String.valueOf(minute)+"-"+String.valueOf(hour);
+		
+	     int returnValue2 = tradelistDAO.registrationPurchaseOrSell(Integer.parseInt(txtOrder2.getText()),
+					txtTotalSell.getText(),s, sell, iv.getCompanyNumber(), iv.getProductNumber());
 		
 		int editStock = (currentStock - sOrder);
 		
 		iv.setStock(editStock);
 		returnValue = inventoryDAO.getProductSell(iv);
-		}
 		
-		if (returnValue != 0) {
+		if (returnValue != 0 && returnValue2 != 0) {
 			obList.set(tvInventoryIndex, iv);
 			inventoryDAO.getTotalLoadList();
 		}
 		handleBtnReset1Action(e);
 	}
+	
 	//구매 버튼 이벤트
 	private void handleBtnPurchaseAction(ActionEvent e) {
 		InventoryDAO inventoryDAO = new InventoryDAO();
@@ -371,157 +375,6 @@ public class InventoryManagementController implements Initializable{
 		
 		txtTotalPurchase.setText(String.valueOf(totalPrice));
 	}
-
-	//재고 화면 리스트 정렬
-	//콤보박스로 리스트 정렬(타입)
-	private void tvInventory1TypeSort() {
-	      String type = null;
-	      try {
-	    	  type = cmbType1.getSelectionModel().getSelectedItem().toString();
-	      }catch(NullPointerException e) {}
-	      ArrayList<Inventory> arrTypeList = new InventoryDAO().getTypeSort(type);
-	      if (arrTypeList == null) {
-	         System.out.println(arrTypeList + ", 값이 null 입니다.");
-	      } else {
-	    	  obList.clear();
-	    	 for(Inventory iv : arrTypeList) {
-	    		 obList.add(iv);
-	    	 }
-	      }
-	   }
-	//콤보박스로 리스트 정렬(색상)
-	private void tvInventory1ColorSort() {
-		 String color = null;
-	      try {
-	    	  color = cmbColor1.getSelectionModel().getSelectedItem().toString();
-	      }catch(NullPointerException e) {}
-	      ArrayList<Inventory> arrColorList = new InventoryDAO().getColorSort(color);
-	      if (arrColorList == null) {
-	         System.out.println(arrColorList + ", 값이 null 입니다.");
-	      } else {
-	    	  obList.clear();
-	    	 for(Inventory iv : arrColorList) {
-	    		 obList.add(iv);
-	    	 }
-	      }
-	   }
-	//콤보박스로 리스트 정렬(크기)
-	private void tvInventory1SizeSort() {
-		 String size = null;
-	      try {
-	    	  size = cmbSize1.getSelectionModel().getSelectedItem().toString();
-	      }catch(NullPointerException e) {}
-	      ArrayList<Inventory> arrSizeList = new InventoryDAO().getSizeSort(size);
-	      if (arrSizeList == null) {
-	         System.out.println(arrSizeList + ", 값이 null 입니다.");
-	      } else {
-	    	  obList.clear();
-	    	 for(Inventory iv : arrSizeList) {
-	    		 obList.add(iv);
-	    	 }
-	      }
-	   }
-	
-	//주문 화면 리스트 정렬
-	//타입 정렬
-	private void tvInventory2TypeSort() {
-			String type = null;
-		      try {
-		    	  type = cmbType2.getSelectionModel().getSelectedItem().toString();
-		      }catch(NullPointerException e) {}
-		      ArrayList<Inventory> arrTypeList = new InventoryDAO().getTypeSort(type);
-		      if (arrTypeList == null) {
-		         System.out.println(arrTypeList + ", 값이 null 입니다.");
-		      } else {
-		    	  obList.clear();
-		    	 for(Inventory iv : arrTypeList) {
-		    		 obList.add(iv);
-		    	 }
-		      }
-		}
-	//색상 정렬
-	private void tvInventory2ColorSort() {
-		 String color = null;
-	      try {
-	    	  color = cmbColor2.getSelectionModel().getSelectedItem().toString();
-	      }catch(NullPointerException e) {}
-	      ArrayList<Inventory> arrColorList = new InventoryDAO().getColorSort(color);
-	      if (arrColorList == null) {
-	         System.out.println(arrColorList + ", 값이 null 입니다.");
-	      } else {
-	    	  obList.clear();
-	    	 for(Inventory iv : arrColorList) {
-	    		 obList.add(iv);
-	    	 }
-	      }
-	   }
-	//크기 정렬
-	private void tvInventory2SizeSort() {
-		 String size = null;
-	      try {
-	    	  size = cmbSize2.getSelectionModel().getSelectedItem().toString();
-	      }catch(NullPointerException e) {}
-	      ArrayList<Inventory> arrSizeList = new InventoryDAO().getSizeSort(size);
-	      if (arrSizeList == null) {
-	         System.out.println(arrSizeList + ", 값이 null 입니다.");
-	      } else {
-	    	  obList.clear();
-	    	 for(Inventory iv : arrSizeList) {
-	    		 obList.add(iv);
-	    	 }
-	      }
-	   }
-
-	//판매 화면 리스트 정렬
-	//타입 정렬
-	private void tvInventory3TypeSort() {
-		String type = null;
-	      try {
-	    	  type = cmbType3.getSelectionModel().getSelectedItem().toString();
-	      }catch(NullPointerException e) {}
-	      ArrayList<Inventory> arrTypeList = new InventoryDAO().getTypeSort(type);
-	      if (arrTypeList == null) {
-	         System.out.println(arrTypeList + ", 값이 null 입니다.");
-	      } else {
-	    	  obList.clear();
-	    	 for(Inventory iv : arrTypeList) {
-	    		 obList.add(iv);
-	    	 }
-	      }
-	}
-	//색상 정렬
-	private void tvInventory3ColorSort() {
-		 String color = null;
-	      try {
-	    	  color = cmbColor3.getSelectionModel().getSelectedItem().toString();
-	      }catch(NullPointerException e) {}
-	      ArrayList<Inventory> arrColorList = new InventoryDAO().getColorSort(color);
-	      if (arrColorList == null) {
-	         System.out.println(arrColorList + ", 값이 null 입니다.");
-	      } else {
-	    	  obList.clear();
-	    	 for(Inventory iv : arrColorList) {
-	    		 obList.add(iv);
-	    	 }
-	      }
-	   }
-	//크기 정렬
-	private void tvInventory3SizeSort() {
-		 String size = null;
-	      try {
-	    	  size = cmbSize3.getSelectionModel().getSelectedItem().toString();
-	      }catch(NullPointerException e) {}
-	      ArrayList<Inventory> arrSizeList = new InventoryDAO().getSizeSort(size);
-	      if (arrSizeList == null) {
-	         System.out.println(arrSizeList + ", 값이 null 입니다.");
-	      } else {
-	    	  obList.clear();
-	    	 for(Inventory iv : arrSizeList) {
-	    		 obList.add(iv);
-	    	 }
-	      }
-	   }
-	
 	
 	//재고 화면 검색 버튼
 	private void handleBtnSearch1Action(ActionEvent e) {
@@ -609,7 +462,8 @@ public class InventoryManagementController implements Initializable{
 				cmbType4.getSelectionModel().getSelectedItem().toString()
 				,cmbSize4.getSelectionModel().getSelectedItem().toString()
 				,cmbColor4.getSelectionModel().getSelectedItem().toString()
-				,cmbCompany4.getSelectionModel().getSelectedItem().toString());
+				,cmbCompany4.getSelectionModel().getSelectedItem().toString()
+				,String.valueOf(obList5.get(cmbselect).getCompany_number()));
 		
 		handleBtnReset1Action(e);
 	}catch(Exception e1) {}
@@ -751,10 +605,6 @@ public class InventoryManagementController implements Initializable{
 		tvInventoryIndex = -1;		
 		
 		txtSearch1.clear();
-		cmbCompany1.getSelectionModel().clearSelection();
-		cmbType1.getSelectionModel().clearSelection();
-		cmbColor1.getSelectionModel().clearSelection();
-		cmbSize1.getSelectionModel().clearSelection();
 		
 		txtProduct1.clear();
 		txtProductNumber1.clear();
@@ -776,11 +626,7 @@ public class InventoryManagementController implements Initializable{
 		tvInventoryIndex = -1;	
 		
 		txtSearch2.clear();
-		cmbCompany2.getSelectionModel().clearSelection();
-		cmbType2.getSelectionModel().clearSelection();
-		cmbColor2.getSelectionModel().clearSelection();
-		cmbSize2.getSelectionModel().clearSelection();
-		
+	
 		txtCompany2.clear();
 		txtProduct2.clear();
 		txtProductNumber2.clear();
@@ -800,10 +646,6 @@ public class InventoryManagementController implements Initializable{
 		tvInventoryIndex = -1;	
 		
 		txtSearch3.clear();
-		cmbCompany3.getSelectionModel().clearSelection();
-		cmbType3.getSelectionModel().clearSelection();
-		cmbColor3.getSelectionModel().clearSelection();
-		cmbSize3.getSelectionModel().clearSelection();
 		
 		txtCompany3.clear();
 		txtProduct3.clear();
@@ -822,45 +664,6 @@ public class InventoryManagementController implements Initializable{
 
 	
 	//콤보박스 리스트
-	//색상
-	private void colorComboBoxList() {
-		ObservableList<String> colorList=FXCollections.observableArrayList();
-		colorList.addAll("흰색","검정색");
-		cmbColor1.setPromptText("색상 선택");
-		cmbColor1.setItems(colorList);
-		cmbColor2.setPromptText("색상 선택");
-		cmbColor2.setItems(colorList);
-		cmbColor3.setPromptText("색상 선택");
-		cmbColor3.setItems(colorList);
-		cmbColor4.setPromptText("색상");
-		cmbColor4.setItems(colorList);
-	}
-	//사이즈
-	private void sizeComboBoxList() {
-		ObservableList<String> sizeList=FXCollections.observableArrayList();
-		sizeList.addAll("어린이용","성인용");
-		cmbSize1.setPromptText("사이즈 선택");
-		cmbSize1.setItems(sizeList);
-		cmbSize2.setPromptText("사이즈 선택");
-		cmbSize2.setItems(sizeList);
-		cmbSize3.setPromptText("사이즈 선택");
-		cmbSize3.setItems(sizeList);
-		cmbSize4.setPromptText("사이즈");
-		cmbSize4.setItems(sizeList);
-	}
-	//타입
-	private void typeComboBoxList() {	
-		ObservableList<String> typeList=FXCollections.observableArrayList();
-		typeList.addAll("KF80","KF94","덴탈 마스크","면 마스크");
-		cmbType1.setPromptText("종류 선택");
-		cmbType1.setItems(typeList);
-		cmbType2.setPromptText("종류 선택");
-		cmbType2.setItems(typeList);
-		cmbType3.setPromptText("종류 선택");
-		cmbType3.setItems(typeList);
-		cmbType4.setPromptText("종류");
-		cmbType4.setItems(typeList);
-	}
 	//업체
 	private void companyComboBoxList() {
 		CompanyDAO companyDAO = new CompanyDAO();
@@ -870,11 +673,12 @@ public class InventoryManagementController implements Initializable{
 		if(arrayList == null) {
 			return;
 		}
-		System.out.println(arrayList.toString());
+		
 		for(int i = 0; i<arrayList.size(); i++) {
 			CompanyModel com = arrayList.get(i);
-			cName=com.getCompany_name();
-			obList1.add(cName);
+			obList5.add(com);
+			
+			obList1.add(com.getCompany_name());
 		}
 		
 		ArrayList<CompanyModel> arrayList2 = companyDAO.companyListUp(production2);
@@ -888,15 +692,6 @@ public class InventoryManagementController implements Initializable{
 			cName2=com.getCompany_name();
 			obList3.add(cName2);
 		}
-		
-		cmbCompany1.setPromptText("업체 선택");
-		cmbCompany1.setItems(obList1);
-		
-		cmbCompany2.setPromptText("업체 선택");
-		cmbCompany2.setItems(obList1);
-		
-		cmbCompany3.setPromptText("업체 선택");
-		cmbCompany3.setItems(obList1);
 		
 		cmbCompany4.setPromptText("업체 선택");
 		cmbCompany4.setItems(obList1);

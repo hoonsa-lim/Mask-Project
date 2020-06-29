@@ -268,6 +268,7 @@ public class InventoryManagementController implements Initializable{
 		cmbType3.getSelectionModel().clearSelection();
 		cmbColor3.getSelectionModel().clearSelection();
 		cmbSize3.getSelectionModel().clearSelection();
+		cmbCompany5.getSelectionModel().clearSelection();
 		
 		txtCompany3.clear();
 		txtProduct3.clear();
@@ -290,14 +291,24 @@ public class InventoryManagementController implements Initializable{
 		InventoryDAO inventoryDAO = new InventoryDAO();
 		Inventory iv = obList.get(tvInventoryIndex);
 		
+		int returnValue=0;
 		int currentStock = iv.getStock();
 		int sOrder = Integer.parseInt(txtOrder2.getText());
+		
+		if(currentStock < 10) {
+			Alert alert = new Alert(AlertType.ERROR);
+	         alert.setTitle("에러");
+	         alert.setHeaderText("재고가 부족합니다");
+	         alert.setContentText("재고 주문 필요");
+	         alert.showAndWait();
+		}
+		else {
 		
 		int editStock = (currentStock - sOrder);
 		
 		iv.setStock(editStock);
-		
-		int returnValue = inventoryDAO.getProductSell(iv);
+		returnValue = inventoryDAO.getProductSell(iv);
+		}
 		
 		if (returnValue != 0) {
 			obList.set(tvInventoryIndex, iv);
@@ -744,7 +755,7 @@ public class InventoryManagementController implements Initializable{
 	}
 	
 	
-	//검색 조건 및 리스트 초기화버튼
+	//검색 조건 및 리스트 초기화버튼 (재고 화면)
 	private void handleBtnReset1Action(ActionEvent e) {
 		tvInventoryIndex = -1;		
 		
@@ -769,7 +780,7 @@ public class InventoryManagementController implements Initializable{
 		totalLoadList();
 		
 	}
-	
+	//검색 조건 및 리스트 초기화버튼 (주문 화면)
 	private void handleBtnReset2Action(ActionEvent e) {
 		tvInventoryIndex = -1;	
 		
@@ -793,7 +804,7 @@ public class InventoryManagementController implements Initializable{
 		obList.clear();
 		totalLoadList();
 	}
-	
+	//검색 조건 및 리스트 초기화버튼 (판매 화면)
 	private void handleBtnReset3Action(ActionEvent e) {
 		tvInventoryIndex = -1;	
 		
@@ -820,6 +831,7 @@ public class InventoryManagementController implements Initializable{
 
 	
 	//콤보박스 리스트
+	//색상
 	private void colorComboBoxList() {
 		ObservableList<String> colorList=FXCollections.observableArrayList();
 		colorList.addAll("흰색","검정색");
@@ -832,7 +844,7 @@ public class InventoryManagementController implements Initializable{
 		cmbColor4.setPromptText("색상");
 		cmbColor4.setItems(colorList);
 	}
-
+	//사이즈
 	private void sizeComboBoxList() {
 		ObservableList<String> sizeList=FXCollections.observableArrayList();
 		sizeList.addAll("어린이용","성인용");
@@ -845,7 +857,7 @@ public class InventoryManagementController implements Initializable{
 		cmbSize4.setPromptText("사이즈");
 		cmbSize4.setItems(sizeList);
 	}
-
+	//타입
 	private void typeComboBoxList() {	
 		ObservableList<String> typeList=FXCollections.observableArrayList();
 		typeList.addAll("KF80","KF94","덴탈 마스크","면 마스크");
@@ -858,7 +870,7 @@ public class InventoryManagementController implements Initializable{
 		cmbType4.setPromptText("종류");
 		cmbType4.setItems(typeList);
 	}
-
+	//업체
 	private void companyComboBoxList() {
 		CompanyDAO companyDAO = new CompanyDAO();
 		

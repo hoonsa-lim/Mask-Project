@@ -327,20 +327,11 @@ public class InventoryManagementController implements Initializable{
 	      int hour = cal.get(Calendar.DAY_OF_MONTH); 
 	      
 	      String s = String.valueOf(second) +"-"+String.valueOf(minute)+"-"+String.valueOf(hour);
-	      
-	      System.out.println(s);
 		
 		Inventory inven = arrayList.get(tvInventoryIndex);
 		
 		int returnValue2 = tradelistDAO.registrationPurchaseOrSell(Integer.parseInt(txtOrder1.getText()),
 				txtTotalPurchase.getText(),s, purchase, inven.getCompanyNumber(), inven.getProductNumber());
-		
-		System.out.println(txtOrder1.getText());
-		System.out.println(txtTotalPurchase.getText());
-		System.out.println(s);
-		System.out.println(purchase);
-		System.out.println(inven.getCompanyNumber());
-		System.out.println(inven.getProductNumber());
 		
 		Inventory iv = obList.get(tvInventoryIndex);
 		

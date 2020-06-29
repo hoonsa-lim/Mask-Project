@@ -190,10 +190,9 @@ public class TradeListDAO {
 
 		try {
 			con = DBUtil.getConnection();
-			//매출이 발생한 연도, 월을 가져옴
-			String query = "select date \r\n" + 
-					"from (select date from tradelistTBL where ps = '판매')SELL \r\n" + 
-					"group by year(date), month(date);";
+			// 매출이 발생한 연도, 월을 가져옴
+			String query = "select date \r\n" + "from (select date from tradelistTBL where ps = '판매')SELL \r\n"
+					+ "group by year(date), month(date);";
 			pstmt = con.prepareStatement(query);
 
 			rs = pstmt.executeQuery();
@@ -235,7 +234,7 @@ public class TradeListDAO {
 			con = DBUtil.getConnection();
 			// 판매 리스트 중에서 특정년도(?)의 월별 매출을 가져옴
 			String query = "select date, sum(total_price)  from (select * from tradelistTBL where ps = '판매')SELL group by year(date), month(date) having year(date) = ?";
-			
+
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, year);
 			rs = pstmt.executeQuery();
@@ -266,7 +265,7 @@ public class TradeListDAO {
 		return arrayList;
 	}
 
-	// report 창에서 콤보박스 초기화 함수
+	// report 창에서 월 콤보박스 이벤트
 	public ArrayList<TradeListModel> reportCombocoxMonthSales(String year, String month) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -275,11 +274,11 @@ public class TradeListDAO {
 
 		try {
 			con = DBUtil.getConnection();
-			String query = "select date, sum(total_price)"+
-					"from (select * from tradelistTBL where ps = '판매')SELL "+
-					"group by year(date), month(date) "+
-					"having year(date) = ? and month(date) = ?";
-			
+
+			// 판매 내역 중, 연월의 중복값을 제외한 값 중, 특정 년도, 특정 월의 날짜와 총 매출
+			String query = "select date, sum(total_price)" + "from (select * from tradelistTBL where ps = '판매')SELL "
+					+ "group by year(date), month(date) " + "having year(date) = ? and month(date) = ?";
+
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, year);
 			pstmt.setString(2, month);
@@ -287,7 +286,49 @@ public class TradeListDAO {
 
 			arrayList = new ArrayList<TradeListModel>();
 			while (rs.next()) {
-				TradeListModel tm = new TradeListModel(rs.getString(1),rs.getString(2));
+				TradeListModel tm = new TradeListModel(rs.getString(1), rs.getString(2));
+				arrayList.add(tm);
+			}
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("에러");
+			alert.setHeaderText("DB접속 또는 쿼리문 실행 또는 result 값을 return받는 과정에서 오류 발생");
+			alert.setContentText("reportCombocox() \n" + e.getStackTrace());
+			alert.showAndWait();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				System.out.println("자원반납 에러 : " + e.getMessage());
+			}
+		}
+		return arrayList;
+	}
+
+	// report 창에서 연도 선택에 따른 그래프
+	public ArrayList<TradeListModel> reportInit(String year) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<TradeListModel> arrayList = null;
+
+		try {
+			con = DBUtil.getConnection();
+			// 판매 리스트 중에서 특정년도(?)의 월별 매출을 가져옴
+			String query = "select date, sum(total_price)  from (select * from tradelistTBL where ps = '판매')SELL group by year(date), month(date) having year(date) = ?";
+
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, year);
+			rs = pstmt.executeQuery();
+
+			arrayList = new ArrayList<TradeListModel>();
+			while (rs.next()) {
+				TradeListModel tm = new TradeListModel(rs.getString(1), rs.getString(2));
 				arrayList.add(tm);
 			}
 		} catch (Exception e) {

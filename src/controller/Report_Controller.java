@@ -5,6 +5,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -85,13 +86,14 @@ public class Report_Controller implements Initializable {
 
 	// 멤버 변수
 	public Stage reportStage;// 리포트 stage
-	public Stage newStage;// logout 용
-	public ObservableList<TradeListModel> obsList;// 매출이 발생한 연도, 월
-	public ObservableList<String> obsListYear;// combobox 초기화
-	public ObservableList<String> obsListMonth;// combobox 초기화
-	public ArrayList<TradeListModel> arrayList;
-	private XYChart.Series series;//차트 시리즈 함수안에서 선언하면..
-
+	private Stage newStage;// logout 용
+	private ObservableList<TradeListModel> obsList;// 매출이 발생한 연도, 월
+	private ObservableList<String> obsListYear;// combobox 초기화
+	private ObservableList<String> obsListMonth;// combobox 초기화
+	private ArrayList<TradeListModel> arrayList;
+	private XYChart.Series series;//차트 시리즈 함수안에서 선언하면 클릭할 때마다 계속 생성함
+//	private String month;
+	
 	// 기본 생성자
 	public Report_Controller() {
 		this.obsList = FXCollections.observableArrayList();
@@ -100,6 +102,7 @@ public class Report_Controller implements Initializable {
 		this.newStage = new Stage();
 		this.arrayList = new ArrayList<TradeListModel>();
 		this.series = new XYChart.Series();
+//		this.month = String.valueOf(new Date().getMonth()+1);
 	}
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@이벤트 등록
@@ -107,6 +110,7 @@ public class Report_Controller implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// 초기 세팅 함수
 		comboboxInit();// 콤보박스 초기값
+//		chartInit();//차트 초기화
 		cmbYear.setOnAction(event -> handleLineChart());// 연매출 라인차트 이벤트
 		cmbMonth.setOnAction(event -> handleMonthSalesAction());// 월 매출
 
@@ -120,6 +124,8 @@ public class Report_Controller implements Initializable {
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@핸들러 등록
 	
+	
+
 	// 콤보박스 초기값
 	private void comboboxInit() {
 		btnReport.setDefaultButton(true);// btnReport 버튼 표시를 위한 것
@@ -151,9 +157,10 @@ public class Report_Controller implements Initializable {
 			// promptText 설정
 			cmbYear.setPromptText("연도 선택");
 			cmbMonth.setPromptText("월 선택");
-
+			
 			// 년도가 먼저 선택되게 하기 위한 장치
 			cmbMonth.setDisable(true);
+			
 		} else {
 			System.out.println(arrayList.size() + "arrayList 값이 null 입니다.");
 		}
@@ -184,7 +191,8 @@ public class Report_Controller implements Initializable {
 		// 라인차트 총매출, 날짜의 달
 		ArrayList<TradeListModel> arrayList = new TradeListDAO().reportCombocoxYearSales(selectYear);
 		ObservableList obsListTrade = FXCollections.observableArrayList();
-
+		series.setName("월별 매출 그래프");
+		
 		// 차트에 값 넣기
 		for (int i = 0; i < arrayList.size(); i++) {
 			TradeListModel tm = arrayList.get(i);
@@ -192,12 +200,11 @@ public class Report_Controller implements Initializable {
 			int totalSales = Integer.parseInt(tm.getTotal_price());
 			obsListTrade.add(new XYChart.Data(month, totalSales));
 		}
-		obsListTrade.stream().distinct().collect(Collectors.toList());//중복 제거
 		series.setData(obsListTrade);
 		chartTotalSales.getData().add(series);
-
+		
 		// 차트 설정
-
+		chartTotalSales.getXAxis().setTickLabelRotation(10);
 	}
 
 	// 월 매출
@@ -214,7 +221,11 @@ public class Report_Controller implements Initializable {
 		//콤보박스 선택시 월 변경
 		lblMonth.setText(month);
 	}
-
+//	//차트 초기화
+//	private void chartInit() {
+//		new TradeListDAO().
+//	}
+	
 	// 재고 관리 화면으로 이동
 	private void handleBtnInventoryAction() {
 		try {

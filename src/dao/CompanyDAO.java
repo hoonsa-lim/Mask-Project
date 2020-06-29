@@ -59,6 +59,7 @@ public class CompanyDAO {
 		return arrayListCompany;
 	}
 
+
 	// 콤보박스 정렬
 	public ArrayList<CompanyModel> contractListUp(String production_consumption, String contract) {
 		Connection con = null;

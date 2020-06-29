@@ -59,30 +59,29 @@ public class AdminDAO {
 	}
 
 	// 콤보박스 정렬
-	public ArrayList<CompanyModel> contractListUp(String production_consumption, String contract) {
+	public ArrayList<AdminModel> comboboxYearMonth() {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ArrayList<CompanyModel> arrayListCompany = null;
+		ArrayList<AdminModel> arrayList = null;
 
 		try {
 			con = DBUtil.getConnection();
 			String query = null;
 			// 콤보박스 정렬
-			query = "select * from companyTBL where production_consumption = ? and contract = ?";
+			query = "SELECT date FROM tradelistTBL GROUP BY year(date)";
 			ps = con.prepareStatement(query);
-			ps.setString(1, production_consumption);
-			ps.setString(2, contract);
+			
 			rs = ps.executeQuery();
 
-			// model을 저장할 ObservableList
-			arrayListCompany = new ArrayList<CompanyModel>();
+			// model을 저장할 arraylist
+			arrayList = new ArrayList<AdminModel>();
 
 			// resultSet 값을 모델, arrayList에 저장
 			while (rs.next()) {
 				CompanyModel companyMd = new CompanyModel(rs.getString(1), rs.getString(2), rs.getString(3),
 						rs.getString(4), rs.getString(5), rs.getString(6), production_consumption);
-				arrayListCompany.add(companyMd);
+				arrayList.add(companyMd);
 			}
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -101,7 +100,7 @@ public class AdminDAO {
 			} catch (SQLException e) {
 			}
 		}
-		return arrayListCompany;
+		return arrayList;
 	}
 
 	// 등록

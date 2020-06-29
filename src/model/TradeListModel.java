@@ -22,8 +22,6 @@ public class TradeListModel {
 		this.purchaseOrSell = purchaseOrSell;
 	}
 	
-	
-	
 	//오버로딩(추가 : 업체명, 제품명, 제품번호)
 	public TradeListModel(int no, int order_quantity, String total_price, String date, String purchaseOrSell,
 			String companyName, String productName, String productNumber) {
@@ -38,6 +36,18 @@ public class TradeListModel {
 		this.productNumber = productNumber;
 	}
 
+	//report 창에서 콤보박스 초기화용
+	public TradeListModel(String date) {
+		super();
+		this.date = date;
+	}
+
+	//report 창에서 연도 그래프 용
+	public TradeListModel(String date, String total_price) {
+		super();
+		this.date = date;
+		this.total_price = total_price;
+	}
 	
 	//getter,setter
 	public int getNo() {

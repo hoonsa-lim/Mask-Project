@@ -556,7 +556,7 @@ public class Admin_Management_Controller implements Initializable {
 			contract = cmbEmployment.getSelectionModel().getSelectedItem().toString();
 		} catch (NullPointerException e) {
 		}
-		ArrayList<CompanyModel> arrayListCompany = new CompanyDAO().contractListUp(nowListProdConsum, contract);
+		ArrayList<CompanyModel> arrayListCompany = new CompanyDAO().comboboxYearMonth(nowListProdConsum, contract);
 		obsListAdmin = FXCollections.observableArrayList();
 		// arrayList에 있는 값을 obsList에 입력한다.
 		if (arrayListCompany.size() != 0) {

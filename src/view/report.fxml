@@ -1,64 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="900.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Report_Controller">
    <children>
-      <Button layoutX="439.0" layoutY="43.0" mnemonicParsing="false" text="재고 관리" />
-      <Button layoutX="606.0" layoutY="43.0" mnemonicParsing="false" text="거래 내역" />
-      <Button layoutX="779.0" layoutY="43.0" mnemonicParsing="false" text="보고서" />
-      <Button layoutX="1200.0" layoutY="14.0" mnemonicParsing="false" text="admin" />
-      <Button layoutX="284.0" layoutY="43.0" mnemonicParsing="false" text="업체 관리" />
-      <TabPane layoutX="47.0" layoutY="117.0" prefHeight="740.0" prefWidth="1190.0" tabClosingPolicy="UNAVAILABLE">
+      <Button fx:id="btnInventory" layoutX="515.0" layoutY="43.0" mnemonicParsing="false" text="재고 관리" />
+      <Button fx:id="btnTradeList" layoutX="682.0" layoutY="43.0" mnemonicParsing="false" text="거래 내역" />
+      <Button fx:id="btnReport" layoutX="855.0" layoutY="43.0" mnemonicParsing="false" text="보고서" />
+      <Button fx:id="btnAdmin" layoutX="1200.0" layoutY="14.0" mnemonicParsing="false" text="admin" />
+      <Button fx:id="btnCompany" layoutX="360.0" layoutY="43.0" mnemonicParsing="false" text="업체 관리" />
+      <TabPane layoutX="47.0" layoutY="117.0" prefHeight="777.0" prefWidth="1190.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="보고">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="759.0" prefWidth="1190.0">
                      <children>
-                        <TableView layoutX="14.0" layoutY="59.0" prefHeight="209.0" prefWidth="1163.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                          </columns>
-                        </TableView>
-                        <TextField layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="250.0" />
-                        <Button layoutX="264.0" layoutY="14.0" mnemonicParsing="false" text="검색" />
-                        <ChoiceBox layoutX="359.0" layoutY="14.0" prefWidth="150.0" />
-                        <ChoiceBox layoutX="548.0" layoutY="14.0" prefWidth="150.0" />
-                        <ChoiceBox layoutX="735.0" layoutY="14.0" prefWidth="150.0" />
-                        <DatePicker layoutX="918.0" layoutY="14.0" prefHeight="29.0" prefWidth="259.0" />
-                        <Label layoutX="615.0" layoutY="286.0" text="가장 많이 출고된 소비처">
+                        <Label layoutX="277.0" layoutY="482.0" text="월 매출">
                            <font>
-                              <Font name="Arial Unicode MS" size="20.0" />
+                              <Font size="34.0" />
                            </font>
                         </Label>
-                        <Label layoutX="34.0" layoutY="286.0" text="가장 많이 판매된 공급처">
+                        <Label fx:id="lblMonth" layoutX="237.0" layoutY="482.0" prefHeight="41.0" prefWidth="48.0" textAlignment="RIGHT">
                            <font>
-                              <Font name="Arial Unicode MS" size="20.0" />
+                              <Font size="34.0" />
                            </font>
                         </Label>
-                        <LineChart layoutX="615.0" layoutY="315.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                        <LineChart layoutX="34.0" layoutY="315.0">
+                        <Label fx:id="lblTotalSales" contentDisplay="CENTER" layoutX="144.0" layoutY="587.0" prefHeight="41.0" prefWidth="379.0" textAlignment="RIGHT">
+                           <font>
+                              <Font size="34.0" />
+                           </font>
+                        </Label>
+                        <LineChart fx:id="chartTotalSales" layoutX="30.0" layoutY="55.0" prefHeight="330.0" prefWidth="1131.0">
                            <xAxis>
                               <CategoryAxis side="BOTTOM" />
                            </xAxis>
@@ -66,12 +49,42 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </LineChart>
+                        <BarChart fx:id="chartProduct" layoutX="637.0" layoutY="430.0" prefHeight="292.0" prefWidth="530.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <Label layoutX="647.0" layoutY="396.0" text="주문 제품 TOP3 (수량기준)">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblWon" layoutX="480.0" layoutY="587.0">
+                           <font>
+                              <Font size="34.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="149.0" layoutY="24.0" text="년 매출 그래프">
+                           <font>
+                              <Font size="34.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblYear" layoutX="51.0" layoutY="23.0" prefHeight="41.0" prefWidth="99.0" textAlignment="RIGHT">
+                           <font>
+                              <Font size="34.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cmbYear" layoutX="853.0" layoutY="15.0" prefWidth="150.0" />
+                        <ComboBox fx:id="cmbMonth" layoutX="1026.0" layoutY="15.0" prefWidth="150.0" />
+                        <Separator layoutX="182.0" layoutY="643.0" prefHeight="1.0" prefWidth="304.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="1104.0" layoutY="14.0" mnemonicParsing="false" text="로그아웃" />
-      <Button layoutX="928.0" layoutY="43.0" mnemonicParsing="false" text="관리자" />
+      <Button fx:id="btnLogout" layoutX="1104.0" layoutY="14.0" mnemonicParsing="false" text="로그아웃" />
    </children>
 </AnchorPane>

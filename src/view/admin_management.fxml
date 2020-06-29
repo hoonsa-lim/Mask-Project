@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="900.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="516.0" layoutY="43.0" mnemonicParsing="false" text="재고 관리" />
+      <Button layoutX="683.0" layoutY="43.0" mnemonicParsing="false" text="거래 내역" />
+      <Button layoutX="856.0" layoutY="43.0" mnemonicParsing="false" text="보고서" />
+      <Button layoutX="1186.0" layoutY="14.0" mnemonicParsing="false" text="admin" />
+      <Button layoutX="361.0" layoutY="43.0" mnemonicParsing="false" text="업체 관리" />
+      <TabPane layoutX="47.0" layoutY="117.0" prefHeight="740.0" prefWidth="1190.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="관리자">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView layoutX="14.0" layoutY="59.0" prefHeight="629.0" prefWidth="1164.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
+                        <TextField layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="250.0" text="사번" />
+                        <Button layoutX="264.0" layoutY="14.0" mnemonicParsing="false" text="검색" />
+                        <Button layoutX="1126.0" layoutY="16.0" mnemonicParsing="false" text="등록" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <Button layoutX="1090.0" layoutY="14.0" mnemonicParsing="false" text="로그아웃" />
+   </children>
+</AnchorPane>
+<AnchorPane prefHeight="900.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Admin_Management_Controller">
+   <children>
+      <Button fx:id="btnInventory" layoutX="515.0" layoutY="43.0" mnemonicParsing="false" text="재고 관리" />
+      <Button fx:id="btnTrade" layoutX="682.0" layoutY="43.0" mnemonicParsing="false" text="거래 내역" />
+      <Button fx:id="btnReport" layoutX="855.0" layoutY="43.0" mnemonicParsing="false" text="보고서" />
+      <Button fx:id="btnAdmin" layoutX="1186.0" layoutY="14.0" mnemonicParsing="false" text="admin" />
+      <Button fx:id="btnCompany" layoutX="360.0" layoutY="43.0" mnemonicParsing="false" text="업체 관리" />
+      <Button fx:id="btnLogout" layoutX="1090.0" layoutY="14.0" mnemonicParsing="false" text="로그아웃" />
+      <TextField fx:id="txtSearch" layoutX="59.0" layoutY="173.0" prefHeight="29.0" prefWidth="250.0" promptText="사원 번호" />
+      <Button fx:id="btnSearch" layoutX="309.0" layoutY="173.0" mnemonicParsing="false" text="검색" />
+      <Button fx:id="btnRegisteration" layoutX="1111.0" layoutY="173.0" mnemonicParsing="false" text="등록" />
+      <Button fx:id="btnEdit" layoutX="1051.0" layoutY="173.0" mnemonicParsing="false" text="수정" />
+      <ComboBox fx:id="cmbEmployment" layoutX="382.0" layoutY="173.0" prefHeight="29.0" prefWidth="180.0" />
+      <TableView fx:id="tlvEmployeeList" layoutX="59.0" layoutY="216.0" prefHeight="640.0" prefWidth="1162.0" />
+      <Button fx:id="btnReset" layoutX="586.0" layoutY="173.0" mnemonicParsing="false" text="초기화" />
+      <Button fx:id="btnDelete" layoutX="1171.0" layoutY="173.0" mnemonicParsing="false" text="삭제" />
+      <TabPane layoutX="47.0" layoutY="116.0" prefHeight="39.0" prefWidth="1190.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="btnAdminTab" text="관리자">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

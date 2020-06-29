@@ -190,7 +190,10 @@ public class TradeListDAO {
 
 		try {
 			con = DBUtil.getConnection();
-			String query = "select date from (select date, ps from tradelistTBL where ps = '판매')SELL group by month(date)";
+			//매출이 발생한 연도, 월을 가져옴
+			String query = "select date \r\n" + 
+					"from (select date from tradelistTBL where ps = '판매')SELL \r\n" + 
+					"group by year(date), month(date);";
 			pstmt = con.prepareStatement(query);
 
 			rs = pstmt.executeQuery();
@@ -231,7 +234,8 @@ public class TradeListDAO {
 		try {
 			con = DBUtil.getConnection();
 			// 판매 리스트 중에서 특정년도(?)의 월별 매출을 가져옴
-			String query = "select date, sum(total_price)  from (select * from tradelistTBL where ps = '판매')SELL group by month(date) having year(date) = ?";
+			String query = "select date, sum(total_price)  from (select * from tradelistTBL where ps = '판매')SELL group by year(date), month(date) having year(date) = ?";
+			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, year);
 			rs = pstmt.executeQuery();
@@ -273,8 +277,9 @@ public class TradeListDAO {
 			con = DBUtil.getConnection();
 			String query = "select date, sum(total_price)"+
 					"from (select * from tradelistTBL where ps = '판매')SELL "+
-					"group by month(date) "+
+					"group by year(date), month(date) "+
 					"having year(date) = ? and month(date) = ?";
+			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, year);
 			pstmt.setString(2, month);

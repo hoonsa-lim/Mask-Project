@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -10,6 +9,8 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -26,22 +27,22 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="759.0" prefWidth="1190.0">
                      <children>
-                        <Label layoutX="277.0" layoutY="482.0" text="월 매출">
+                        <Label layoutX="358.0" layoutY="118.0" text="월 매출">
                            <font>
-                              <Font size="34.0" />
+                              <Font name="Arial Black" size="40.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblMonth" layoutX="237.0" layoutY="482.0" prefHeight="41.0" prefWidth="48.0" textAlignment="RIGHT">
+                        <Label fx:id="lblMonth" layoutX="239.0" layoutY="111.0" prefHeight="60.0" prefWidth="98.0" text="??" textAlignment="RIGHT">
                            <font>
-                              <Font size="34.0" />
+                              <Font name="Arial Black" size="50.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblTotalSales" contentDisplay="CENTER" layoutX="144.0" layoutY="587.0" prefHeight="41.0" prefWidth="379.0" textAlignment="RIGHT">
+                        <Label fx:id="lblTotalSales" contentDisplay="CENTER" layoutX="613.0" layoutY="109.0" prefHeight="60.0" prefWidth="563.0" textAlignment="RIGHT">
                            <font>
-                              <Font size="34.0" />
+                              <Font name="Arial Black" size="50.0" />
                            </font>
                         </Label>
-                        <LineChart fx:id="chartTotalSales" layoutX="30.0" layoutY="55.0" prefHeight="330.0" prefWidth="1131.0">
+                        <LineChart fx:id="chartTotalSales" layoutX="30.0" layoutY="345.0" prefHeight="367.0" prefWidth="1131.0">
                            <xAxis>
                               <CategoryAxis side="BOTTOM" />
                            </xAxis>
@@ -49,37 +50,29 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <BarChart fx:id="chartProduct" layoutX="637.0" layoutY="430.0" prefHeight="292.0" prefWidth="530.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </BarChart>
-                        <Label layoutX="647.0" layoutY="396.0" text="주문 제품 TOP3 (수량기준)">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Label>
                         <Label fx:id="lblWon" layoutX="480.0" layoutY="587.0">
                            <font>
                               <Font size="34.0" />
                            </font>
                         </Label>
-                        <Label layoutX="149.0" layoutY="24.0" text="년 매출 그래프">
+                        <Label layoutX="149.0" layoutY="293.0" text="년 매출 그래프">
                            <font>
-                              <Font size="34.0" />
+                              <Font name="Arial Black" size="34.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblYear" layoutX="51.0" layoutY="23.0" prefHeight="41.0" prefWidth="99.0" textAlignment="RIGHT">
+                        <Label fx:id="lblYear" layoutX="51.0" layoutY="292.0" prefHeight="41.0" prefWidth="99.0" text="??" textAlignment="RIGHT">
                            <font>
-                              <Font size="34.0" />
+                              <Font name="Arial Black" size="34.0" />
                            </font>
                         </Label>
                         <ComboBox fx:id="cmbYear" layoutX="853.0" layoutY="15.0" prefWidth="150.0" />
                         <ComboBox fx:id="cmbMonth" layoutX="1026.0" layoutY="15.0" prefWidth="150.0" />
-                        <Separator layoutX="182.0" layoutY="643.0" prefHeight="1.0" prefWidth="304.0" />
+                        <ImageView fitHeight="41.0" fitWidth="56.0" layoutX="543.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/won.png" />
+                           </image>
+                        </ImageView>
+                        <Separator layoutX="72.0" layoutY="267.0" prefHeight="0.0" prefWidth="1055.0" />
                      </children></AnchorPane>
             </content>
           </Tab>

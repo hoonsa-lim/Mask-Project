@@ -126,16 +126,18 @@
                         <Label layoutX="911.0" layoutY="356.0" prefHeight="18.0" prefWidth="45.0" text="색상" />
                         <TextField fx:id="txtColor3" layoutX="964.0" layoutY="351.0" prefHeight="29.0" prefWidth="201.0" />
                         <Separator layoutX="899.0" layoutY="447.0" prefHeight="23.0" prefWidth="278.0" />
-                        <TextField fx:id="txtOrder2" layoutX="976.0" layoutY="476.0" prefHeight="29.0" prefWidth="151.0" />
-                        <Label layoutX="900.0" layoutY="481.0" prefHeight="19.0" prefWidth="66.0" text="판매 수량" />
-                        <TextField fx:id="txtTotalSell" layoutX="992.0" layoutY="537.0" prefHeight="29.0" prefWidth="156.0" />
-                        <Label layoutX="911.0" layoutY="542.0" prefHeight="19.0" prefWidth="55.0" text="총 금액" />
-                        <Button fx:id="btnCal2" layoutX="1127.0" layoutY="476.0" mnemonicParsing="false" text="계산" />
+                        <TextField fx:id="txtOrder2" layoutX="976.0" layoutY="514.0" prefHeight="29.0" prefWidth="151.0" />
+                        <Label layoutX="900.0" layoutY="519.0" prefHeight="19.0" prefWidth="66.0" text="판매 수량" />
+                        <TextField fx:id="txtTotalSell" layoutX="992.0" layoutY="553.0" prefHeight="29.0" prefWidth="156.0" />
+                        <Label layoutX="911.0" layoutY="558.0" prefHeight="19.0" prefWidth="55.0" text="총 금액" />
+                        <Button fx:id="btnCal2" layoutX="1127.0" layoutY="514.0" mnemonicParsing="false" text="계산" />
                         <ComboBox fx:id="cmbCompany3" layoutX="342.0" layoutY="15.0" prefWidth="150.0" />
                         <ComboBox fx:id="cmbColor3" layoutX="825.0" layoutY="15.0" prefWidth="150.0" />
                         <ComboBox fx:id="cmbSize3" layoutX="665.0" layoutY="15.0" prefWidth="150.0" />
                         <ComboBox fx:id="cmbType3" layoutX="502.0" layoutY="15.0" prefWidth="150.0" />
                         <Button fx:id="btnReset3" layoutX="984.0" layoutY="15.0" mnemonicParsing="false" text="초기화" />
+                        <ComboBox fx:id="cmbCompany5" layoutX="989.0" layoutY="470.0" prefWidth="150.0" />
+                        <Label layoutX="919.0" layoutY="475.0" text="판매처" />
                      </children>
                   </AnchorPane>
                </content>

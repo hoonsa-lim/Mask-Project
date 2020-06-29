@@ -121,12 +121,6 @@ public class InventoryDAO {
 		try {
 			con = InventoryDBUtill.getConnection();
 			
-			if (con != null) {
-				System.out.println("DB 연결 성공");
-			} else {
-				System.out.println("DB 연결 실패");
-			}
-			
 			String query = "delete from inventoryTBL where product_number =?";
 			
 			pst = con.prepareStatement(query);
@@ -285,11 +279,7 @@ public class InventoryDAO {
 		
 		try {
 			con=InventoryDBUtill.getConnection();
-			if(con!=null) {
-				System.out.println("DB 연결 성공");
-				}else {
-				System.out.println("DB 연결 실패");
-				}
+			
 			// 콤보박스 정렬
 			String query = "select * from inventoryTBL where type = ?";
 			pst=con.prepareStatement(query);
@@ -337,11 +327,7 @@ public class InventoryDAO {
 		
 		try {
 			con=InventoryDBUtill.getConnection();
-			if(con!=null) {
-				System.out.println("DB 연결 성공");
-				}else {
-				System.out.println("DB 연결 실패");
-				}
+			
 			// 콤보박스 정렬
 			String query = "select * from inventoryTBL where color = ?";
 			pst=con.prepareStatement(query);
@@ -389,11 +375,7 @@ public class InventoryDAO {
 		
 		try {
 			con=InventoryDBUtill.getConnection();
-			if(con!=null) {
-				System.out.println("DB 연결 성공");
-				}else {
-				System.out.println("DB 연결 실패");
-				}
+		
 			// 콤보박스 정렬
 			String query = "select * from inventoryTBL where size = ?";
 			pst=con.prepareStatement(query);

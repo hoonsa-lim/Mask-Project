@@ -7,7 +7,10 @@ import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import application.AdminMain;
+import application.CompanyMain;
 import application.InventoryMain;
+import application.ReportMain;
 import application.TradeListMain;
 import dao.CompanyDAO;
 import dao.TradeListDAO;
@@ -73,10 +76,20 @@ public class TradeList_Management_Controller implements Initializable {
 
 	// 멤버 변수
 	public Stage tradeStage;// 업체관리 stage
-	private String purchase = "주문";// tableView 하나로 구현하기 위해서 생산업체리스트와 소비업체 리스트를 선택에 따라 list up하기 위한 변수
-	private String sell = "판매";
-	private String nowPurchaseOrSell = null;// 현재 업체관리 tableView에 나타나고 있는 리스트가 소비업체인지/생산업체인지 확인하는 변수
+	public Stage newStage;// logout 열기용, 창 마다 크기가 다른데 기존stagae로 주면 창 로드되는 위치가 중앙 x
+	private String purchase;// tableView 하나로 구현하기 위해서 생산업체리스트와 소비업체 리스트를 선택에 따라 list up하기 위한 변수
+	private String sell;
+	private String nowPurchaseOrSell;// 현재 업체관리 tableView에 나타나고 있는 리스트가 소비업체인지/생산업체인지 확인하는 변수
 	private ObservableList<TradeListModel> obsListTrade;
+
+	// 기본 생성자
+	public TradeList_Management_Controller() {
+		this.newStage = new Stage();
+		this.purchase = "주문";
+		this.purchase = "판매";
+		this.nowPurchaseOrSell = null;
+		this.obsListTrade = null;
+	}
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@이벤트 등록
 	@Override
@@ -88,19 +101,27 @@ public class TradeList_Management_Controller implements Initializable {
 		setTextFormatEditRegistry();// 등록 및 수정 텍스트 포멧
 
 		// 버튼 이벤트
-		btnPurchaseTab.setOnSelectionChanged(event -> tableViewtradeListInit(purchase)); // 생산업체 버튼 클릭 시 tableView에 생산업체 초기화
+		btnPurchaseTab.setOnSelectionChanged(event -> tableViewtradeListInit(purchase)); // 생산 클릭 시 tableView에 생산업체 초기화
 		btnSellTab.setOnSelectionChanged(event -> tableViewtradeListInit(sell)); // 소비업체 버튼 클릭 시 tableView에 소비업체 초기화
 		btnReset.setOnAction(event -> handelBtnSearchAction()); // 리셋(초기화) 버튼 이벤트
 		dpkStart.setOnAction(event -> handleBtnDateSearchAction()); // 선택 날짜 기준 내림차순
-		btnInventory.setOnAction(event -> handleBtnInventoryAction());
-		btnCompany.setOnAction(event -> handleBtnCompanyAction());
-		btnSearch.setOnAction(event -> searchTableViewAction());//검색버튼 이벤트
+		btnSearch.setOnAction(event -> searchTableViewAction());// 검색버튼 이벤트
+
+		// 화면 이동
+//		btnLogout.setOnAction(event -> handleBtnLogoutAction());// 로그인 화면으로 이동
+		btnAdmin.setOnAction(event -> handleBtnAdminAction());// 관리자 화면으로 이동
+		btnCompany.setOnAction(event -> handleBtnCompanyAction());// 업체관리 화면으로 이동
+		btnInventory.setOnAction(event -> handleBtnInventoryAction());// 재고관리 화면으로 이동
+		btnReport.setOnAction(event -> handleBtnReportAction());// 보고서 화면으로 이동
+
 	}
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@핸들러 등록
 
 	// tableView 칼럼 초기값 입력 함수
 	private void tableViewColumnInit() {
+		btnTrade.setDefaultButton(true);
+		
 		TableColumn colDate = new TableColumn("거래 날짜");
 		colDate.setMinWidth(150);
 		colDate.setStyle("-fx-alignment: CENTER;");
@@ -179,8 +200,8 @@ public class TradeList_Management_Controller implements Initializable {
 	private void handleBtnDateSearchAction() {
 		ArrayList<TradeListModel> arrayList = null;
 		try {
-		arrayList = new TradeListDAO().findTradeListDate(dpkStart.getValue().toString(),nowPurchaseOrSell);
-		}catch(NullPointerException e) {
+			arrayList = new TradeListDAO().findTradeListDate(dpkStart.getValue().toString(), nowPurchaseOrSell);
+		} catch (NullPointerException e) {
 			return;
 		}
 		obsListTrade = FXCollections.observableArrayList();
@@ -215,7 +236,7 @@ public class TradeList_Management_Controller implements Initializable {
 
 	// 검색버튼 이벤트
 	private void searchTableViewAction() {
-		if(txtSearch.getText().trim().equals("")) {
+		if (txtSearch.getText().trim().equals("")) {
 			Alert alert = new Alert(AlertType.ERROR, "업체명이 입력되지 않았습니다.");
 			alert.setHeaderText("업체명을 입력하세요");
 			alert.setTitle("검색");
@@ -251,7 +272,7 @@ public class TradeList_Management_Controller implements Initializable {
 			alert.showAndWait();
 		}
 	}
-	
+
 	// 재고 관리 화면으로 이동
 	private void handleBtnInventoryAction() {
 		try {
@@ -260,12 +281,41 @@ public class TradeList_Management_Controller implements Initializable {
 			System.out.println(e.getMessage());
 		}
 	}
+
 	// 업체 관리 화면으로 이동
 	private void handleBtnCompanyAction() {
 		try {
-			new TradeListMain().start(tradeStage);
+			new CompanyMain().start(tradeStage);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	// 보고서 화면으로 이동
+	private void handleBtnReportAction() {
+		try {
+			new ReportMain().start(tradeStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	// 관리자 화면으로 이동
+	private void handleBtnAdminAction() {
+
+		try {
+			new AdminMain().start(tradeStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	// 로그인 화면으로 이동
+//	private void handleBtnLogoutAction() {
+//		try {
+//			new LoginMain().start(newStage);
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//		tradeStage.close();
+//	}
 }

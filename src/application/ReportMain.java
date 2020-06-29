@@ -18,8 +18,8 @@ public class ReportMain extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader fxmlLoder = new FXMLLoader(getClass().getResource("/view/report.fxml"));
 		Parent root = fxmlLoder.load();
-//		Report_Controller rpController = fxmlLoder.getController();
-//		rpController.reportStage = primaryStage;
+		Report_Controller rpController = fxmlLoder.getController();
+		rpController.reportStage = primaryStage;
 		
 		Scene scene = new Scene(root);
 		

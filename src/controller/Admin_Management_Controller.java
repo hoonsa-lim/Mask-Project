@@ -10,7 +10,9 @@ import java.util.ResourceBundle;
 
 import javax.security.auth.callback.ConfirmationCallback;
 
+import application.CompanyMain;
 import application.InventoryMain;
+import application.ReportMain;
 import application.TradeListMain;
 import dao.AdminDAO;
 import dao.CompanyDAO;
@@ -100,7 +102,7 @@ public class Admin_Management_Controller implements Initializable {
 		// 초기 세팅 함수
 		cmbContractInitialize();// 콤보박스 초기값 입력 함수
 		tableViewColumnInit();// tableView 칼럼 초기화 함수
-		tableViewListInit();// '관리자' 버튼 클릭 시 tableView에 생산업체 초기화
+		tableViewListInit();// tableView에 '관리자'
 		searchAndComboboxReset();// 리셋(초기화) 함수 (콤보박스, 검색창)
 
 		// 버튼 이벤트
@@ -114,10 +116,10 @@ public class Admin_Management_Controller implements Initializable {
 
 		// 화면 이동
 //		btnLogout.setOnAction(event -> handleBtnLogoutAction());// 로그인 화면으로 이동
-//		btnAdmin.setOnAction(event -> handleBtnAdminAction());// 관리자 화면으로 이동
+		btnCompany.setOnAction(event -> handleBtnCompanyAction());// 업체관리 화면으로 이동
 		btnInventory.setOnAction(event -> handleBtnInventoryAction());// 재고관리 화면으로 이동
 		btnTrade.setOnAction(event -> handleBtnTradeAction());// 거래내역 화면으로 이동
-//		btnReport.setOnAction(event -> handleBtnReportAction());// 보고서 화면으로 이동
+		btnReport.setOnAction(event -> handleBtnReportAction());// 보고서 화면으로 이동
 	}
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@핸들러 등록
@@ -130,6 +132,8 @@ public class Admin_Management_Controller implements Initializable {
 
 	// tableView 칼럼 초기값 입력 함수
 	private void tableViewColumnInit() {
+		btnAdmin.setDefaultButton(true);
+		
 		TableColumn colNumber = new TableColumn("사원 번호");
 		colNumber.setMinWidth(120);
 		colNumber.setStyle("-fx-alignment: CENTER;");
@@ -160,6 +164,7 @@ public class Admin_Management_Controller implements Initializable {
 
 	// '관리자' 버튼 클릭 시 tableView에 생산업체 초기화
 	private void tableViewListInit() {
+		btnAdmin.setDefaultButton(false);
 		ArrayList<AdminModel> arrayList = new AdminDAO().adminListUp();
 		obsListAdmin = FXCollections.observableArrayList();
 		// arrayList에 있는 값을 obsList에 입력한다.
@@ -214,7 +219,7 @@ public class Admin_Management_Controller implements Initializable {
 		btnCheck.setDisable(true);
 		btnNameClear.setDisable(true);
 		btnNumClear.setDisable(true);
-		
+
 		// radioButton 그룹생성
 		ToggleGroup contractGroup = new ToggleGroup();
 		rdoContract.setToggleGroup(contractGroup);
@@ -606,48 +611,53 @@ public class Admin_Management_Controller implements Initializable {
 		tableViewListInit(nowListProdConsum);
 	}
 
-	// 로그인 화면으로 이동
-//	private void handleBtnLogoutAction() {
-//		try {
-//			new LoginMain().start(primaryStage);
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//	}
-
-	// 관리자 화면으로 이동
-//	private void handleBtnAdminAction() {
-//		try {
-//			new AdminMain().start(primaryStage);
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//	}
-
 	// 재고관리 화면으로 이동
 	private void handleBtnInventoryAction() {
 		try {
-			new InventoryMain().start(primaryStage);
+			new InventoryMain().start(adminEditStage);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		primaryStage.close();
 	}
 
 	// 거래내역 화면으로 이동
 	private void handleBtnTradeAction() {
 		try {
-			new TradeListMain().start(primaryStage);
+			new TradeListMain().start(adminEditStage);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		primaryStage.close();
 	}
 
 	// 보고서 화면으로 이동
-//	private void handleBtnReportAction() {
-//		try {
-//			new ReportMain().start(primaryStage);
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
+	private void handleBtnReportAction() {
+		try {
+			new ReportMain().start(adminEditStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		primaryStage.close();
+	}
+
+	// 업체 관리 화면으로 이동
+	private void handleBtnCompanyAction() {
+		try {
+			new CompanyMain().start(adminEditStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		primaryStage.close();
+	}
+
+	// 로그인 화면으로 이동
+//		private void handleBtnLogoutAction() {
+//			try {
+//				new LoginMain().start(adminEditStage);
+//			} catch (Exception e) {
+//				System.out.println(e.getMessage());
+//			}
+//			primaryStage.close();
 //		}
-//	}
 }

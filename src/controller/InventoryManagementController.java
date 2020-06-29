@@ -587,6 +587,7 @@ public class InventoryManagementController implements Initializable{
 
 	//DB에서 재고 가져오기
 	private void totalLoadList() {
+		btnInventory.setDefaultButton(true);//inventory 버튼 표시를 위한 것
 		InventoryDAO inventoryDAO = new InventoryDAO();
 		arrayList = inventoryDAO.getTotalLoadList();
 		if (arrayList == null) {

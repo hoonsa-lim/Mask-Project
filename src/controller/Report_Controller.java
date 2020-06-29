@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import application.AdminMain;
 import application.InventoryMain;
 import application.TradeListMain;
 import dao.CompanyDAO;
@@ -82,15 +83,17 @@ public class Report_Controller implements Initializable {
 
 	// 멤버 변수
 	public Stage reportStage;// 리포트 stage
+	public Stage newStage;// logout 용
 	public ObservableList<TradeListModel> obsList;// combobox init
 	public ObservableList<String> obsListYear;// combobox init
 	public ObservableList<String> obsListMonth;// combobox init
 
+	// 기본 생성자
 	public Report_Controller() {
 		this.obsList = FXCollections.observableArrayList();
 		this.obsListYear = FXCollections.observableArrayList();
 		this.obsListMonth = FXCollections.observableArrayList();
-
+		this.newStage = new Stage();
 	}
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@이벤트 등록
@@ -104,11 +107,19 @@ public class Report_Controller implements Initializable {
 		// 버튼 이벤트
 		btnInventory.setOnAction(event -> handleBtnInventoryAction());
 		btnCompany.setOnAction(event -> handleBtnCompanyAction());
+
+		// 화면 이동
+//		btnLogout.setOnAction(event -> handleBtnLogoutAction());// 로그인 화면으로 이동
+		btnAdmin.setOnAction(event -> handleBtnAdminAction());// 관리자 화면으로 이동
+		btnCompany.setOnAction(event -> handleBtnCompanyAction());// 업체관리 화면으로 이동
+		btnInventory.setOnAction(event -> handleBtnInventoryAction());// 재고관리 화면으로 이동
+		btnTradeList.setOnAction(event -> handleBtnTradeAction());// 거래내역 화면으로 이동
 	}
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@핸들러 등록
 	// 콤보박스 초기값
 	private void comboboxInit() {
+		btnReport.setDefaultButton(true);//btnReport 버튼 표시를 위한 것
 		ArrayList<TradeListModel> arrayList = new TradeListDAO().reportCombocox();
 		List listYear = new ArrayList<String>();// 중복값 제거용
 		List listMonth = new ArrayList<String>();// 중복값 제거용
@@ -152,24 +163,6 @@ public class Report_Controller implements Initializable {
 			cmbMonth.setDisable(true);
 		} else {
 			System.out.println(arrayList.size() + "arrayList 값이 null 입니다.");
-		}
-	}
-
-	// 재고 관리 화면으로 이동
-	private void handleBtnInventoryAction() {
-		try {
-			new InventoryMain().start(reportStage);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-	// 업체 관리 화면으로 이동
-	private void handleBtnCompanyAction() {
-		try {
-			new TradeListMain().start(reportStage);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -257,10 +250,56 @@ public class Report_Controller implements Initializable {
 		ArrayList<TradeListModel> arrayList = new TradeListDAO().reportCombocoxMonthSales(year, month);
 
 		System.out.println();
-		
+
 		// 라벨에 월 변경
 		lblTotalSales.setText(String.format("%,d", Integer.parseInt(arrayList.get(0).getTotal_price())));
 		lblTotalSales.setTextAlignment(TextAlignment.LEFT);
-		
+
 	}
+
+	// 재고 관리 화면으로 이동
+	private void handleBtnInventoryAction() {
+		try {
+			new InventoryMain().start(reportStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	// 업체 관리 화면으로 이동
+	private void handleBtnCompanyAction() {
+		try {
+			new TradeListMain().start(reportStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	// 거래내역 화면으로 이동
+	private void handleBtnTradeAction() {
+		try {
+			new TradeListMain().start(reportStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	// 관리자 화면으로 이동
+	private void handleBtnAdminAction() {
+		try {
+			new AdminMain().start(newStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	// 로그인 화면으로 이동
+//	private void handleBtnLogoutAction() {
+//		try {
+//			new LoginMain().start(companyEditStage);
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//		primaryStage.close();
+//	}
 }

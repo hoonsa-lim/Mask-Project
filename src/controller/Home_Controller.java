@@ -64,7 +64,7 @@ public class Home_Controller implements Initializable {
 		btnTrade.setOnAction(event -> handleLoadTradeStageAction());// load Trade
 		btnInventory.setOnAction(event -> handleLoadInventoryStageAction());// load Inventory
 		btnReport.setOnAction(event -> handleLoadReportStageAction());// load Report
-		btnAdmin.setOnAction(event ->  handleLoadAdminStageAction());//load Admin
+		btnAdmin.setOnAction(event -> handleLoadAdminStageAction());// load Admin
 //		btnLogout.setOnAction(event ->  handleLoadLogoutStageAction());//load Logout
 	}
 
@@ -108,12 +108,13 @@ public class Home_Controller implements Initializable {
 	}
 
 	// load Admin
-		private void handleLoadAdminStageAction() {
-			try {
-				new AdminMain().start(newStage);
-			} catch (Exception e) {}
-	stage.close();
+	private void handleLoadAdminStageAction() {
+		try {
+			new AdminMain().start(newStage);
+		} catch (Exception e) {
 		}
+		stage.close();
+	}
 
 	// load Logout
 //	private void handleLoadLogoutStageAction() {

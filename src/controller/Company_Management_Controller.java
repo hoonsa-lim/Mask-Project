@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import javax.security.auth.callback.ConfirmationCallback;
 
+import application.AdminMain;
 import application.InventoryMain;
 import application.ReportMain;
 import application.TradeListMain;
@@ -86,18 +87,19 @@ public class Company_Management_Controller implements Initializable {
 
 	// 멤버 변수
 	public Stage primaryStage;// stage
-	private Stage companyEditStage;// 업체 수정 stage
+	private Stage companyEditStage;// 업체 수정 , logout 창에 쓰임
 	private String product;// tableView 하나로 구현하기 위해서 생산업체리스트와 소비업체 리스트를 선택에 따라 list up하기 위한 변수
 	private String consum;
 	private String nowListProdConsum;// 현재 업체관리 tableView에 나타나고 있는 리스트가 소비업체인지/생산업체인지 확인하는 변수
 	private int selectedTable;// tableView 에서 현재 선택한 레코드의 index 저장
 	private ObservableList<CompanyModel> obsListCompany;
 
+	// 기본 생성자
 	public Company_Management_Controller() {
 		this.product = "생산";
 		this.consum = "소비";
 		this.nowListProdConsum = null;
-		this.selectedTable = -1;// -1을 주지 않으면 자동으로 0값을 입력하여 tableView를 선택하지 않아도 수정, 삭제 시 0번 index의 값이 삭제됨
+		this.selectedTable = -1;// -1을 주지 않으면 default 0값을 입력하여 tableView를 선택하지 않아도 수정, 삭제 시 0번 index의 값이 삭제됨
 		this.obsListCompany = null;
 	}
 
@@ -123,7 +125,7 @@ public class Company_Management_Controller implements Initializable {
 
 		// 화면 이동
 //		btnLogout.setOnAction(event -> handleBtnLogoutAction());// 로그인 화면으로 이동
-//		btnAdmin.setOnAction(event -> handleBtnAdminAction());// 관리자 화면으로 이동
+		btnAdmin.setOnAction(event -> handleBtnAdminAction());// 관리자 화면으로 이동
 		btnInventory.setOnAction(event -> handleBtnInventoryAction());// 재고관리 화면으로 이동
 		btnTrade.setOnAction(event -> handleBtnTradeAction());// 거래내역 화면으로 이동
 		btnReport.setOnAction(event -> handleBtnReportAction());// 보고서 화면으로 이동
@@ -133,6 +135,7 @@ public class Company_Management_Controller implements Initializable {
 
 	// 콤보박스 초기값 입력 함수
 	private void cmbContractInitialize() {
+		btnCompany.setDefaultButton(true);
 		cmbContract.setItems(FXCollections.observableArrayList("계약중", "계약만료"));
 		cmbContract.setPromptText("* 계약 여부 선택 *");
 	}
@@ -627,23 +630,14 @@ public class Company_Management_Controller implements Initializable {
 		tableViewProdCompanyListInit(nowListProdConsum);
 	}
 
-	// 로그인 화면으로 이동
-//	private void handleBtnLogoutAction() {
-//		try {
-//			new LoginMain().start(primaryStage);
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//	}
-
 	// 관리자 화면으로 이동
-//	private void handleBtnAdminAction() {
-//		try {
-//			new AdminMain().start(primaryStage);
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//	}
+	private void handleBtnAdminAction() {
+		try {
+			new AdminMain().start(primaryStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
 	// 재고관리 화면으로 이동
 	private void handleBtnInventoryAction() {
@@ -663,7 +657,7 @@ public class Company_Management_Controller implements Initializable {
 		}
 	}
 
-//	 보고서 화면으로 이동
+	// 보고서 화면으로 이동
 	private void handleBtnReportAction() {
 		try {
 			new ReportMain().start(primaryStage);
@@ -671,4 +665,13 @@ public class Company_Management_Controller implements Initializable {
 			System.out.println(e.getMessage());
 		}
 	}
+	// 로그인 화면으로 이동
+//	private void handleBtnLogoutAction() {
+//		try {
+//			new LoginMain().start(companyEditStage);
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//		primaryStage.close();
+//	}
 }

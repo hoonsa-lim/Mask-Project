@@ -1,5 +1,6 @@
 package application;
 
+import controller.Admin_Management_Controller;
 import controller.TradeList_Management_Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,10 +16,10 @@ public class AdminMain extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader fxmlLoder = new FXMLLoader(getClass().getResource("/view/tradelist_management.fxml"));
+		FXMLLoader fxmlLoder = new FXMLLoader(getClass().getResource("/view/admin_management.fxml"));
 		Parent root = fxmlLoder.load();
-		TradeList_Management_Controller tradeListController = fxmlLoder.getController();
-		tradeListController.tradeStage = primaryStage;
+		Admin_Management_Controller admin = fxmlLoder.getController();
+		admin.primaryStage = primaryStage;
 		
 		Scene scene = new Scene(root);
 		

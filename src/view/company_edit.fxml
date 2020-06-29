@@ -6,28 +6,28 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="632.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button id="btnSave" layoutX="364.0" layoutY="20.0" mnemonicParsing="false" text="저장" />
-      <Button id="btnClose" layoutX="432.0" layoutY="20.0" mnemonicParsing="false" text="닫기" />
-      <Label layoutX="43.0" layoutY="195.0" text="업체명" />
-      <TextField id="txtName" layoutX="133.0" layoutY="190.0" prefHeight="29.0" prefWidth="300.0" />
-      <Label layoutX="14.0" layoutY="111.0" text="사업자등록번호" />
-      <TextField id="txtNumber" layoutX="133.0" layoutY="106.0" prefHeight="29.0" prefWidth="220.0" />
-      <Label layoutX="33.0" layoutY="287.0" text="담당자명" />
-      <TextField id="txtManagerName" layoutX="133.0" layoutY="282.0" prefHeight="29.0" prefWidth="300.0" />
-      <Label layoutX="43.0" layoutY="377.0" text="연락처" />
-      <TextField id="txtPhone" layoutX="133.0" layoutY="373.0" prefHeight="29.0" prefWidth="300.0" />
-      <Label layoutX="48.0" layoutY="458.0" text="주소" />
-      <TextField id="txtAdress" layoutX="133.0" layoutY="453.0" prefHeight="29.0" prefWidth="300.0" />
-      <RadioButton id="rdoContract" layoutX="180.0" layoutY="531.0" mnemonicParsing="false" text="계약중" />
-      <RadioButton id="rdoEndContract" layoutX="308.0" layoutY="529.0" mnemonicParsing="false" text="계약만료" />
-      <Label layoutX="30.0" layoutY="531.0" text="계약여부" />
-      <Button id="btnCheck" layoutX="352.0" layoutY="106.0" mnemonicParsing="false" text="중복확인" />
-      <Button id="btnNameClear" layoutX="432.0" layoutY="190.0" mnemonicParsing="false" opacity="0.7" text="X" />
-      <Button id="btnMangerNameClear" layoutX="432.0" layoutY="282.0" mnemonicParsing="false" opacity="0.7" text="X" />
-      <Button id="btnPhoneClear" layoutX="432.0" layoutY="373.0" mnemonicParsing="false" opacity="0.7" text="X" />
-      <Button id="btnAdressClear" layoutX="432.0" layoutY="453.0" mnemonicParsing="false" opacity="0.7" text="X" />
-      <Button id="btnNumClear" layoutX="432.0" layoutY="106.0" mnemonicParsing="false" opacity="0.7" text="X" />
+      <Button id="btnSave" layoutX="134.0" layoutY="560.0" mnemonicParsing="false" text="저장" />
+      <Button id="btnClose" layoutX="322.0" layoutY="560.0" mnemonicParsing="false" text="닫기" />
+      <Label layoutX="53.0" layoutY="165.0" text="업체명" />
+      <TextField id="txtName" layoutX="143.0" layoutY="160.0" prefHeight="29.0" prefWidth="300.0" />
+      <Label layoutX="24.0" layoutY="71.0" text="사업자등록번호" />
+      <TextField id="txtNumber" layoutX="143.0" layoutY="66.0" prefHeight="29.0" prefWidth="220.0" />
+      <Label layoutX="47.0" layoutY="257.0" text="담당자명" />
+      <TextField id="txtManagerName" layoutX="143.0" layoutY="252.0" prefHeight="29.0" prefWidth="300.0" />
+      <Label layoutX="53.0" layoutY="347.0" text="연락처" />
+      <TextField id="txtPhone" layoutX="143.0" layoutY="343.0" prefHeight="29.0" prefWidth="300.0" />
+      <Label layoutX="58.0" layoutY="438.0" text="주소" />
+      <TextField id="txtAdress" layoutX="143.0" layoutY="433.0" prefHeight="29.0" prefWidth="300.0" />
+      <RadioButton id="rdoContract" layoutX="210.0" layoutY="501.0" mnemonicParsing="false" text="계약중" />
+      <RadioButton id="rdoEndContract" layoutX="321.0" layoutY="501.0" mnemonicParsing="false" text="계약만료" />
+      <Label layoutX="100.0" layoutY="501.0" text="계약여부" />
+      <Button id="btnCheck" layoutX="362.0" layoutY="66.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="83.0" text="중복확인" />
+      <Button id="btnNameClear" layoutX="442.0" layoutY="160.0" mnemonicParsing="false" opacity="0.7" text="X" />
+      <Button id="btnMangerNameClear" layoutX="442.0" layoutY="252.0" mnemonicParsing="false" opacity="0.7" text="X" />
+      <Button id="btnPhoneClear" layoutX="442.0" layoutY="343.0" mnemonicParsing="false" opacity="0.7" text="X" />
+      <Button id="btnAdressClear" layoutX="442.0" layoutY="433.0" mnemonicParsing="false" opacity="0.7" text="X" />
+      <Button id="btnNumClear" layoutX="442.0" layoutY="66.0" mnemonicParsing="false" opacity="0.7" text="X" />
    </children>
 </AnchorPane>

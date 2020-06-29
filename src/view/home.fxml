@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="1000.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/monalisa-4893660_1920.jpg" />
+            <Image url="@../images/monalisa-4893660_1920.jpg" />
          </image>
       </ImageView>
       <Button fx:id="btnAdmin" layoutX="560.0" layoutY="64.0" mnemonicParsing="false" text="admin">
@@ -39,7 +39,7 @@
          </font></Button>
       <ImageView fitHeight="136.0" fitWidth="94.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/project/shy.png" />
+            <Image url="@../images/shy.png" />
          </image>
       </ImageView>
    </children>

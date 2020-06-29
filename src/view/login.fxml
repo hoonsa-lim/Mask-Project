@@ -9,40 +9,40 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="841.0" prefWidth="1339.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Login_controller">
+<AnchorPane prefHeight="800.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Login_controller">
    <children>
-      <ImageView fitHeight="809.0" fitWidth="1285.0" layoutX="-29.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="831.0" fitWidth="1390.0" layoutX="-11.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/project/login.png" />
+            <Image url="@../images/login.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutX="883.0" layoutY="303.0" text="사번" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="882.0" layoutY="305.0" text="사번" textAlignment="CENTER" textFill="#184568">
          <font>
-            <Font size="26.0" />
+            <Font name="System Font" size="23.0" />
          </font></Label>
-      <Label layoutX="859.0" layoutY="434.0" text="비밀번호">
+      <Label layoutX="861.0" layoutY="435.0" text="비밀번호" textFill="#184568">
          <font>
-            <Font size="26.0" />
+            <Font name="System Font" size="23.0" />
          </font></Label>
-      <Button fx:id="btnLogin" layoutX="958.0" layoutY="554.0" mnemonicParsing="false" text="로그인">
+      <Button fx:id="btnLogin" layoutX="958.0" layoutY="554.0" mnemonicParsing="false" text="로그인" textFill="#655e5e">
          <font>
             <Font size="20.0" />
          </font></Button>
-      <PasswordField fx:id="txtPassword" layoutX="1004.0" layoutY="418.0" prefHeight="66.0" prefWidth="276.0">
+      <PasswordField fx:id="txtPassword" layoutX="1004.0" layoutY="425.0" prefHeight="50.0" prefWidth="276.0">
          <font>
             <Font size="26.0" />
          </font></PasswordField>
-      <TextField fx:id="txtEmploye" layoutX="1000.0" layoutY="283.0" prefHeight="66.0" prefWidth="278.0">
+      <TextField fx:id="txtEmploye" layoutX="1000.0" layoutY="293.0" prefHeight="50.0" prefWidth="278.0">
          <font>
             <Font size="26.0" />
          </font></TextField>
-      <Button fx:id="btnFindPassword" layoutX="1110.0" layoutY="555.0" mnemonicParsing="false" text="비밀번호 찾기">
+      <Button fx:id="btnFindPassword" layoutX="1110.0" layoutY="555.0" mnemonicParsing="false" text="비밀번호 찾기" textFill="#655e5e">
          <font>
             <Font size="20.0" />
          </font></Button>
-      <ImageView fitHeight="136.0" fitWidth="94.0" layoutX="1212.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="136.0" fitWidth="94.0" layoutX="1182.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/project/shy.png" />
+            <Image url="@../images/shy.png" />
          </image>
       </ImageView>
    </children>

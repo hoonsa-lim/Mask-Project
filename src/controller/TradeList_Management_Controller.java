@@ -7,7 +7,6 @@ import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import application.AdminMain;
 import application.CompanyMain;
 import application.InventoryMain;
 import application.ReportMain;
@@ -109,7 +108,6 @@ public class TradeList_Management_Controller implements Initializable {
 
 		// 화면 이동
 //		btnLogout.setOnAction(event -> handleBtnLogoutAction());// 로그인 화면으로 이동
-		btnAdmin.setOnAction(event -> handleBtnAdminAction());// 관리자 화면으로 이동
 		btnCompany.setOnAction(event -> handleBtnCompanyAction());// 업체관리 화면으로 이동
 		btnInventory.setOnAction(event -> handleBtnInventoryAction());// 재고관리 화면으로 이동
 		btnReport.setOnAction(event -> handleBtnReportAction());// 보고서 화면으로 이동
@@ -300,15 +298,6 @@ public class TradeList_Management_Controller implements Initializable {
 		}
 	}
 
-	// 관리자 화면으로 이동
-	private void handleBtnAdminAction() {
-
-		try {
-			new AdminMain().start(tradeStage);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
 	// 로그인 화면으로 이동
 //	private void handleBtnLogoutAction() {
 //		try {

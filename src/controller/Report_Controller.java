@@ -59,8 +59,6 @@ public class Report_Controller implements Initializable {
 	@FXML
 	Button btnReport;
 	@FXML
-	Button btnAdmin;
-	@FXML
 	Button btnLogout;
 
 	// 거래내역 페이지의 버튼

@@ -43,7 +43,6 @@ public class InventoryManagementController implements Initializable{
 	@FXML private Button btnInventory;
 	@FXML private Button btnTrade;
 	@FXML private Button btnReport;
-	@FXML private Button btnAdmin;
 	@FXML private Button btnCompany;
 	@FXML private Button btnLogout;
 	

@@ -20,7 +20,6 @@
       <Button fx:id="btnInventory" layoutX="515.0" layoutY="43.0" mnemonicParsing="false" text="재고 관리" />
       <Button fx:id="btnTrade" layoutX="682.0" layoutY="43.0" mnemonicParsing="false" text="거래 내역" />
       <Button fx:id="btnReport" layoutX="855.0" layoutY="43.0" mnemonicParsing="false" text="보고서" />
-      <Button fx:id="btnAdmin" layoutX="1186.0" layoutY="14.0" mnemonicParsing="false" text="admin" />
       <Button fx:id="btnCompany" layoutX="360.0" layoutY="43.0" mnemonicParsing="false" text="업체 관리" />
       <Button fx:id="btnLogout" layoutX="1090.0" layoutY="14.0" mnemonicParsing="false" text="로그아웃" />
       <TabPane layoutX="45.0" layoutY="98.0" prefHeight="740.0" prefWidth="1190.0" tabClosingPolicy="UNAVAILABLE">

@@ -48,8 +48,6 @@ public class Home_Controller implements Initializable {
 	@FXML
 	Button btnReport;
 	@FXML
-	Button btnAdmin;
-	@FXML
 	Button btnLogout;
 
 	// ¸â¹ö º¯¼ö

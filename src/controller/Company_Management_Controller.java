@@ -58,8 +58,6 @@ public class Company_Management_Controller implements Initializable {
 	@FXML
 	Button btnReport;
 	@FXML
-	Button btnAdmin;
-	@FXML
 	Button btnLogout;
 
 	// 업체관리 페이지의 버튼

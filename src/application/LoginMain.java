@@ -1,7 +1,7 @@
 package application;
 
 
-import controller.Login_controller;
+import controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +18,7 @@ public class LoginMain extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader fxmlLoder = new FXMLLoader(getClass().getResource("/view/login.fxml"));
 		Parent root = fxmlLoder.load();
-		Login_controller loginController = fxmlLoder.getController();
+		LoginController loginController = fxmlLoder.getController();
 		loginController.stage = primaryStage;
 		
 		Scene scene = new Scene(root);

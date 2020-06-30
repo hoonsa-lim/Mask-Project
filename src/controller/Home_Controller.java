@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import application.CompanyMain;
 import application.InventoryMain;
+import application.LoginMain;
 import application.ReportMain;
 import application.TradeListMain;
 import dao.CompanyDAO;
@@ -61,7 +62,7 @@ public class Home_Controller implements Initializable {
 		btnTrade.setOnAction(event -> handleLoadTradeStageAction());// load Trade
 		btnInventory.setOnAction(event -> handleLoadInventoryStageAction());// load Inventory
 		btnReport.setOnAction(event -> handleLoadReportStageAction());// load Report
-//		btnLogout.setOnAction(event ->  handleLoadLogoutStageAction());//load Logout
+		btnLogout.setOnAction(event ->  handleLoadLogoutStageAction());//load Logout
 	}
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@핸들러 등록
@@ -105,11 +106,11 @@ public class Home_Controller implements Initializable {
 
 
 	// load Logout
-//	private void handleLoadLogoutStageAction() {
-//		try {
-//			new LoginMain().start(newStage);
-//		} catch (Exception e) {}
-//	stage.close();
-//	}
+	private void handleLoadLogoutStageAction() {
+		try {
+			new LoginMain().start(newStage);
+		} catch (Exception e) {}
+	stage.close();
+	}
 
 }

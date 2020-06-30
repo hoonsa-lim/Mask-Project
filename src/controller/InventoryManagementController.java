@@ -373,23 +373,38 @@ public class InventoryManagementController implements Initializable{
 
 	//판매 총액 계산 이벤트
 	private void handleBtnCal2Action(ActionEvent e) {
-		
+		try {
 		int order = Integer.parseInt(txtOrder2.getText());
 		int purchase = Integer.parseInt(txtSell2.getText());
 		
 		int totalPrice = order * purchase;
 		
 		txtTotalSell.setText(String.valueOf(totalPrice));
+		}
+		catch(Exception e1) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("재고 입력 오류");
+			alert.setContentText("판매 수량을 입력 하시오");
+			alert.showAndWait();
+		}
 	}
 	//구매 총액 계산 이벤트
 	private void handleBtnCal1Action(ActionEvent e) {
-		
+		try {
 		int order = Integer.parseInt(txtOrder1.getText());
 		int purchase = Integer.parseInt(txtPurchase2.getText());
 		
 		int totalPrice = order * purchase;
 		
 		txtTotalPurchase.setText(String.valueOf(totalPrice));
+		}catch(Exception e1) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("재고 입력 오류");
+			alert.setContentText("구매 수량을 입력 하시오");
+			alert.showAndWait();
+		}
 	}
 	
 	//재고 화면 검색 버튼

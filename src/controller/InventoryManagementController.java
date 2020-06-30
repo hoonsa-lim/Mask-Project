@@ -43,7 +43,6 @@ public class InventoryManagementController implements Initializable{
 	@FXML private Button btnInventory;
 	@FXML private Button btnTrade;
 	@FXML private Button btnReport;
-	@FXML private Button btnAdmin;
 	@FXML private Button btnCompany;
 	@FXML private Button btnLogout;
 	
@@ -281,6 +280,7 @@ public class InventoryManagementController implements Initializable{
 	
 	//판매 버튼 이벤트
 	private void handleBtnSellAction(ActionEvent e) {
+		try {
 		InventoryDAO inventoryDAO = new InventoryDAO();
 		TradeListDAO tradelistDAO = new TradeListDAO();
 		Inventory iv = obList.get(tvInventoryIndex);
@@ -318,10 +318,18 @@ public class InventoryManagementController implements Initializable{
 			inventoryDAO.getTotalLoadList();
 		}
 		handleBtnReset1Action(e);
+		}catch(Exception e1) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Edit Error");
+			alert.setHeaderText("재고 선택 오류");
+			alert.setContentText("판매할 재고를 선택하시오");
+			alert.showAndWait();
+		}
 	}
 	
 	//구매 버튼 이벤트
 	private void handleBtnPurchaseAction(ActionEvent e) {
+		try {
 		InventoryDAO inventoryDAO = new InventoryDAO();
 		TradeListDAO tradelistDAO = new TradeListDAO();
 		
@@ -353,27 +361,49 @@ public class InventoryManagementController implements Initializable{
 		}
 		
 		handleBtnReset1Action(e);
+		}catch(Exception e1) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Edit Error");
+			alert.setHeaderText("재고 선택 오류");
+			alert.setContentText("구매할 재고를 선택하시오");
+			alert.showAndWait();
+		}
 	}
 
 	//판매 총액 계산 이벤트
 	private void handleBtnCal2Action(ActionEvent e) {
-		
+		try {
 		int order = Integer.parseInt(txtOrder2.getText());
 		int purchase = Integer.parseInt(txtSell2.getText());
 		
 		int totalPrice = order * purchase;
 		
 		txtTotalSell.setText(String.valueOf(totalPrice));
+		}
+		catch(Exception e1) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("재고 입력 오류");
+			alert.setContentText("판매 수량을 입력 하시오");
+			alert.showAndWait();
+		}
 	}
 	//구매 총액 계산 이벤트
 	private void handleBtnCal1Action(ActionEvent e) {
-		
+		try {
 		int order = Integer.parseInt(txtOrder1.getText());
 		int purchase = Integer.parseInt(txtPurchase2.getText());
 		
 		int totalPrice = order * purchase;
 		
 		txtTotalPurchase.setText(String.valueOf(totalPrice));
+		}catch(Exception e1) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("재고 입력 오류");
+			alert.setContentText("구매 수량을 입력 하시오");
+			alert.showAndWait();
+		}
 	}
 	
 	//재고 화면 검색 버튼
@@ -395,8 +425,8 @@ public class InventoryManagementController implements Initializable{
 	}catch (Exception event) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Search Error");
-		alert.setHeaderText("제품 번호를 입력하시오");
-		alert.setContentText("제품 번호 입력");
+		alert.setHeaderText("검색할 제품 번호를 입력하시오");
+		alert.setContentText("제품 번호를 입력하시오");
 		alert.showAndWait();
 		}
 	}
@@ -419,8 +449,8 @@ public class InventoryManagementController implements Initializable{
 	}catch (Exception event) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Search Error");
-		alert.setHeaderText("제품 번호를 입력하시오");
-		alert.setContentText("제품 번호 입력");
+		alert.setHeaderText("검색할 제품 번호를 입력하시오");
+		alert.setContentText("제품 번호를 입력하시오");
 		alert.showAndWait();
 		}
 	}
@@ -443,8 +473,8 @@ public class InventoryManagementController implements Initializable{
 	}catch (Exception event) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Search Error");
-		alert.setHeaderText("제품 번호를 입력하시오");
-		alert.setContentText("제품 번호 입력");
+		alert.setHeaderText("검색할 제품 번호를 입력하시오");
+		alert.setContentText("제품 번호를 입력하시오");
 		alert.showAndWait();
 		}
 	}
@@ -477,6 +507,7 @@ public class InventoryManagementController implements Initializable{
 	}
 	//수정 버튼 이벤트
 	private void handleBtnEditAction(ActionEvent e) {
+		try {
 		InventoryDAO inventoryDAO = new InventoryDAO();
 		Inventory inven = obList.get(tvInventoryIndex);
 		
@@ -491,6 +522,13 @@ public class InventoryManagementController implements Initializable{
 		
 		if (returnValue != 0) {
 			obList.set(tvInventoryIndex, inven);
+		}
+		}catch(Exception e1) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Edit Error");
+			alert.setHeaderText("재고 선택 오류");
+			alert.setContentText("수정할 재고를 선택하시오");
+			alert.showAndWait();
 		}
 	}
 
@@ -579,7 +617,13 @@ public class InventoryManagementController implements Initializable{
 		cmbSize4.getSelectionModel().clearSelection();
 		cmbCompany4.getSelectionModel().clearSelection();
 		}
-		catch(ArrayIndexOutOfBoundsException e1) {}
+		catch(ArrayIndexOutOfBoundsException e1) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Edit Error");
+			alert.setHeaderText("재고 선택 오류");
+			alert.setContentText("삭제할 재고를 선택하시오");
+			alert.showAndWait();
+		}
 		
 		obList.clear();
 		totalLoadList();

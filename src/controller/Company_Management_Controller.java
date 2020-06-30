@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 
 import javax.security.auth.callback.ConfirmationCallback;
 
-import application.AdminMain;
 import application.InventoryMain;
 import application.ReportMain;
 import application.TradeListMain;
@@ -58,8 +57,6 @@ public class Company_Management_Controller implements Initializable {
 	Button btnTrade;
 	@FXML
 	Button btnReport;
-	@FXML
-	Button btnAdmin;
 	@FXML
 	Button btnLogout;
 
@@ -125,7 +122,6 @@ public class Company_Management_Controller implements Initializable {
 
 		// 화면 이동
 //		btnLogout.setOnAction(event -> handleBtnLogoutAction());// 로그인 화면으로 이동
-		btnAdmin.setOnAction(event -> handleBtnAdminAction());// 관리자 화면으로 이동
 		btnInventory.setOnAction(event -> handleBtnInventoryAction());// 재고관리 화면으로 이동
 		btnTrade.setOnAction(event -> handleBtnTradeAction());// 거래내역 화면으로 이동
 		btnReport.setOnAction(event -> handleBtnReportAction());// 보고서 화면으로 이동
@@ -628,15 +624,6 @@ public class Company_Management_Controller implements Initializable {
 	private void handleBtnSearchAction() {
 		searchAndComboboxReset();
 		tableViewProdCompanyListInit(nowListProdConsum);
-	}
-
-	// 관리자 화면으로 이동
-	private void handleBtnAdminAction() {
-		try {
-			new AdminMain().start(primaryStage);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
 	}
 
 	// 재고관리 화면으로 이동

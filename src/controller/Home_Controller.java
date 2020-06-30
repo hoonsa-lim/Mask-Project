@@ -7,7 +7,6 @@ import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import application.AdminMain;
 import application.CompanyMain;
 import application.InventoryMain;
 import application.ReportMain;
@@ -49,8 +48,6 @@ public class Home_Controller implements Initializable {
 	@FXML
 	Button btnReport;
 	@FXML
-	Button btnAdmin;
-	@FXML
 	Button btnLogout;
 
 	// ¸â¹ö º¯¼ö
@@ -64,7 +61,6 @@ public class Home_Controller implements Initializable {
 		btnTrade.setOnAction(event -> handleLoadTradeStageAction());// load Trade
 		btnInventory.setOnAction(event -> handleLoadInventoryStageAction());// load Inventory
 		btnReport.setOnAction(event -> handleLoadReportStageAction());// load Report
-		btnAdmin.setOnAction(event -> handleLoadAdminStageAction());// load Admin
 //		btnLogout.setOnAction(event ->  handleLoadLogoutStageAction());//load Logout
 	}
 
@@ -107,14 +103,6 @@ public class Home_Controller implements Initializable {
 		stage.close();
 	}
 
-	// load Admin
-	private void handleLoadAdminStageAction() {
-		try {
-			new AdminMain().start(newStage);
-		} catch (Exception e) {
-		}
-		stage.close();
-	}
 
 	// load Logout
 //	private void handleLoadLogoutStageAction() {

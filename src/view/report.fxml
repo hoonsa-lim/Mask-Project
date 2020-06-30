@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -14,12 +20,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Report_Controller">
+<AnchorPane prefHeight="900.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Report_Controller">
    <children>
       <Button fx:id="btnInventory" layoutX="515.0" layoutY="43.0" mnemonicParsing="false" text="재고 관리" />
       <Button fx:id="btnTradeList" layoutX="682.0" layoutY="43.0" mnemonicParsing="false" text="거래 내역" />
       <Button fx:id="btnReport" layoutX="855.0" layoutY="43.0" mnemonicParsing="false" text="보고서" />
-      <Button fx:id="btnAdmin" layoutX="1200.0" layoutY="14.0" mnemonicParsing="false" text="admin" />
       <Button fx:id="btnCompany" layoutX="360.0" layoutY="43.0" mnemonicParsing="false" text="업체 관리" />
       <TabPane layoutX="47.0" layoutY="117.0" prefHeight="777.0" prefWidth="1190.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>

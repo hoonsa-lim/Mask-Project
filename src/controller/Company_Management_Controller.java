@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javax.security.auth.callback.ConfirmationCallback;
 
 import application.InventoryMain;
+import application.LoginMain;
 import application.ReportMain;
 import application.TradeListMain;
 import dao.CompanyDAO;
@@ -121,7 +122,7 @@ public class Company_Management_Controller implements Initializable {
 		tlvCompanyList.setOnMouseClicked(event -> handleSaveClickTableIndexAction());// tableView 선택한 index 기억
 
 		// 화면 이동
-//		btnLogout.setOnAction(event -> handleBtnLogoutAction());// 로그인 화면으로 이동
+		btnLogout.setOnAction(event -> handleBtnLogoutAction());// 로그인 화면으로 이동
 		btnInventory.setOnAction(event -> handleBtnInventoryAction());// 재고관리 화면으로 이동
 		btnTrade.setOnAction(event -> handleBtnTradeAction());// 거래내역 화면으로 이동
 		btnReport.setOnAction(event -> handleBtnReportAction());// 보고서 화면으로 이동
@@ -403,7 +404,7 @@ public class Company_Management_Controller implements Initializable {
 			if (e.getControlNewText().isEmpty()) {
 				return e;
 			}
-			// 위치조사( 키보드 치는 위치를 추적한다.)
+			// 위치조사
 			ParsePosition parsePosition = new ParsePosition(0);
 			// 숫자만 받겠다.
 			Object object = cmNumber.parse(e.getControlNewText(), parsePosition);
@@ -482,28 +483,32 @@ public class Company_Management_Controller implements Initializable {
 				}
 			}
 		});
+		
 
-		// 등록창의 textField에 입력된 값을 모델에 담음
-		CompanyModel cm = new CompanyModel(txtNumber.getText(), txtName.getText(), txtManagerName.getText(),
-				txtPhone.getText(), ((RadioButton) contractGroup.getSelectedToggle()).getText(), txtAdress.getText(),
-				nowListProdConsum);
 
 		// 저장 버튼 이벤트
 		btnSave.setOnAction(event -> {
+			//btncheck가 사용할 수 있는 상황이라면 
 			if (btnCheck.isDisable() != true) {
 				Alert alert = new Alert(AlertType.WARNING, "사업자 등록 번호의 중복확인이 진행되지 않았습니다.");
 				alert.setHeaderText("사업자 등록 번호를 중복확인");
 				alert.setTitle("등록 안내");
 				alert.showAndWait();
 			} else {
-				// 경고창 로드
+				
+				// 등록창의 textField에 입력된 값을 모델에 담음
+				CompanyModel cm = new CompanyModel(txtNumber.getText(), txtName.getText(), txtManagerName.getText(),
+						txtPhone.getText(), ((RadioButton) contractGroup.getSelectedToggle()).getText(), txtAdress.getText(),
+						nowListProdConsum);
+				
+				// 안내창 로드
 				Alert alert = new Alert(AlertType.INFORMATION, "", ButtonType.OK, ButtonType.CANCEL);
 				alert.setTitle("등록 안내");
 				alert.setHeaderText("해당 업체를 등록하시겠습니까? " + "\n\n * 업체명 : " + cm.getCompany_name() + "\n * 사업자등록번호 : "
 						+ cm.getCompany_number());
 				alert.showAndWait();
 
-				// alert 창에서 ok를 눌러 닫으면 삭제 진행
+				// alert 창에서 ok를 눌러 닫으면 등록 진행
 				if (alert.getResult().getText().equals("OK")) {
 					int result = new CompanyDAO().CompanyRegistration(cm);
 					if (result == 0) {
@@ -513,6 +518,7 @@ public class Company_Management_Controller implements Initializable {
 						Alert CompleteAlert = new Alert(AlertType.INFORMATION, "데이터 등록 성공");
 						CompleteAlert.showAndWait();
 						tableViewProdCompanyListInit(nowListProdConsum);
+						companyEditStage.close();
 					}
 				}
 			}
@@ -653,12 +659,12 @@ public class Company_Management_Controller implements Initializable {
 		}
 	}
 	// 로그인 화면으로 이동
-//	private void handleBtnLogoutAction() {
-//		try {
-//			new LoginMain().start(companyEditStage);
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//		primaryStage.close();
-//	}
+	private void handleBtnLogoutAction() {
+		try {
+			new LoginMain().start(companyEditStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		primaryStage.close();
+	}
 }

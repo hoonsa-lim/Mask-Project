@@ -196,8 +196,10 @@ public class Report_Controller implements Initializable {
 			int totalSales = Integer.parseInt(tm.getTotal_price());
 			obsListTrade.add(new XYChart.Data(month, totalSales));
 		}
+		try {
 		series.setData(obsListTrade);
-		chartTotalSales.getData().add(series);
+		chartTotalSales.getData().add(series);//예외 해도 나옴
+		}catch(Exception e) {}
 		
 		// 차트 설정
 		chartTotalSales.getXAxis().setTickLabelRotation(10);
@@ -205,10 +207,14 @@ public class Report_Controller implements Initializable {
 
 	// 월 매출
 	private void handleMonthSalesAction() {
+		String month=null;
+		String year=null;
+		ArrayList<TradeListModel> arrayList = null;
+		try {
 		// 월,년 받아오기
-		String month = cmbMonth.getSelectionModel().getSelectedItem().toString();
-		String year = cmbYear.getSelectionModel().getSelectedItem().toString();
-		ArrayList<TradeListModel> arrayList = new TradeListDAO().reportCombocoxMonthSales(year, month);
+		month = cmbMonth.getSelectionModel().getSelectedItem().toString();
+		year = cmbYear.getSelectionModel().getSelectedItem().toString();
+		arrayList = new TradeListDAO().reportCombocoxMonthSales(year, month);
 		
 		// 라벨에 월 변경
 		lblTotalSales.setText(String.format("%,d", Integer.parseInt(arrayList.get(0).getTotal_price())));
@@ -216,6 +222,7 @@ public class Report_Controller implements Initializable {
 	
 		//콤보박스 선택시 월 변경
 		lblMonth.setText(month);
+		}catch(Exception e) {}
 	}
 //	//차트 초기화
 //	private void chartInit() {

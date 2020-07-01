@@ -167,9 +167,10 @@ public class TradeList_Management_Controller implements Initializable {
 			System.out.println(arrayList.size() + "arrayList 값이 null 입니다.");
 		}
 		// 현재 tableView 에 보여지는 리스트가 소비업체인가, 생산업체인가
+		try {
 		TradeListModel tm = obsListTrade.get(0);
 		nowPurchaseOrSell = tm.getPurchaseOrSell();
-
+		}catch(Exception e) {}
 		// 검색 및 데이트피커 리셋
 		searchAndDatePickerReset();
 	}

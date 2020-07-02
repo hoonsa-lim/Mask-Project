@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import application.CompanyMain;
 import application.InventoryMain;
+import application.LoginMain;
 import application.ReportMain;
 import application.TradeListMain;
 import dao.CompanyDAO;
@@ -83,7 +84,7 @@ public class TradeList_Management_Controller implements Initializable {
 	public TradeList_Management_Controller() {
 		this.newStage = new Stage();
 		this.purchase = "주문";
-		this.purchase = "판매";
+		this.sell = "판매";
 		this.nowPurchaseOrSell = null;
 		this.obsListTrade = null;
 	}
@@ -105,7 +106,7 @@ public class TradeList_Management_Controller implements Initializable {
 		btnSearch.setOnAction(event -> searchTableViewAction());// 검색버튼 이벤트
 
 		// 화면 이동
-//		btnLogout.setOnAction(event -> handleBtnLogoutAction());// 로그인 화면으로 이동
+		btnLogout.setOnAction(event -> handleBtnLogoutAction());// 로그인 화면으로 이동
 		btnCompany.setOnAction(event -> handleBtnCompanyAction());// 업체관리 화면으로 이동
 		btnInventory.setOnAction(event -> handleBtnInventoryAction());// 재고관리 화면으로 이동
 		btnReport.setOnAction(event -> handleBtnReportAction());// 보고서 화면으로 이동
@@ -298,12 +299,12 @@ public class TradeList_Management_Controller implements Initializable {
 	}
 
 	// 로그인 화면으로 이동
-//	private void handleBtnLogoutAction() {
-//		try {
-//			new LoginMain().start(newStage);
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//		tradeStage.close();
-//	}
+	private void handleBtnLogoutAction() {
+		try {
+			new LoginMain().start(newStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		tradeStage.close();
+	}
 }

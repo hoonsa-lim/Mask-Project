@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import application.InventoryMain;
+import application.LoginMain;
 import application.TradeListMain;
 import dao.CompanyDAO;
 import dao.TradeListDAO;
@@ -112,7 +113,7 @@ public class Report_Controller implements Initializable {
 		cmbMonth.setOnAction(event -> handleMonthSalesAction());// 월 매출
 
 		// 화면 이동
-//		btnLogout.setOnAction(event -> handleBtnLogoutAction());// 로그인 화면으로 이동
+		btnLogout.setOnAction(event -> handleBtnLogoutAction());// 로그인 화면으로 이동
 		btnCompany.setOnAction(event -> handleBtnCompanyAction());// 업체관리 화면으로 이동
 		btnInventory.setOnAction(event -> handleBtnInventoryAction());// 재고관리 화면으로 이동
 		btnTradeList.setOnAction(event -> handleBtnTradeAction());// 거래내역 화면으로 이동
@@ -187,22 +188,22 @@ public class Report_Controller implements Initializable {
 		// 라인차트 총매출, 날짜의 달
 		ArrayList<TradeListModel> arrayList = new TradeListDAO().reportCombocoxYearSales(selectYear);
 		ObservableList obsListTrade = FXCollections.observableArrayList();
-		series.setName("월별 매출 그래프");
+		series = new XYChart.Series();
 		
 		// 차트에 값 넣기
+		chartTotalSales.getData().clear();
+		obsListTrade.clear();
 		for (int i = 0; i < arrayList.size(); i++) {
 			TradeListModel tm = arrayList.get(i);
 			String month = tm.getDate().substring(5, 7);
 			int totalSales = Integer.parseInt(tm.getTotal_price());
 			obsListTrade.add(new XYChart.Data(month, totalSales));
 		}
-		try {
 		series.setData(obsListTrade);
 		chartTotalSales.getData().add(series);//예외 해도 나옴
-		}catch(Exception e) {}
 		
 		// 차트 설정
-		chartTotalSales.getXAxis().setTickLabelRotation(10);
+//		chartTotalSales.getXAxis().setTickLabelRotation(10);
 	}
 
 	// 월 매출
@@ -257,12 +258,12 @@ public class Report_Controller implements Initializable {
 	}
 
 	// 로그인 화면으로 이동
-//	private void handleBtnLogoutAction() {
-//		try {
-//			new LoginMain().start(companyEditStage);
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//		primaryStage.close();
-//	}
+	private void handleBtnLogoutAction() {
+		try {
+			new LoginMain().start(newStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		reportStage.close();
+	}
 }

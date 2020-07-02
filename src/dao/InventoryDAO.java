@@ -320,8 +320,10 @@ public class InventoryDAO {
 		try {
 			con = InventoryDBUtill.getConnection();
 			
-			String query = "select * from inventoryTBL where product_number like?";
-			
+			String query = "select b.product_number, b.product_name, b.stock, b.purchase_price, b.sell_price, b.type, b.size, b.color, a.company_name, a.company_number " +
+					"from companyTBL a "+
+					"inner join inventoryTBL b "+
+					"where b.product_number like ? and a.production_consumption = '»ý»ê'";
 			pst = con.prepareStatement(query);
 			pst.setString(1,"%"+ pNumber +"%");
 			
@@ -329,9 +331,8 @@ public class InventoryDAO {
 			
 			arrList = new ArrayList<Inventory>();
 			while (rs.next()) {
-				Inventory iv = new Inventory(rs.getString(1), rs.getString(2), rs.getInt(3),
-						rs.getInt(4), rs.getInt(5), rs.getString(6),
-						rs.getString(7), rs.getString(8));
+				Inventory iv = new Inventory(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getInt(4),
+						rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10));
 				arrList.add(iv);
 			}
 		} catch (Exception e) {

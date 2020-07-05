@@ -815,6 +815,8 @@ public class InventoryManagementController implements Initializable {
 
 		} catch (Exception e1) {
 		}
+		txtOrder1.clear();
+		txtTotalPurchase.clear();
 	}
 
 	private void handleTvinventory3MouseClicked(MouseEvent e) {
@@ -833,6 +835,9 @@ public class InventoryManagementController implements Initializable {
 			txtSize3.setText(inventory.getSize());
 		} catch (Exception e1) {
 		}
+		cmbCompany5.getSelectionModel().select(-1);
+		txtOrder2.clear();
+		txtTotalSell.clear();
 	}
 
 	// 재고 리스트, DB 에서 해당 목록 삭제
@@ -1036,15 +1041,15 @@ public class InventoryManagementController implements Initializable {
 		colPnumber.setCellValueFactory(new PropertyValueFactory<>("productNumber"));
 
 		TableColumn colCompany = new TableColumn("업체명");
-		colCompany.setPrefWidth(190.0);
+		colCompany.setPrefWidth(180.0);
 		colCompany.setCellValueFactory(new PropertyValueFactory<>("companyName"));
 
 		TableColumn colProduct = new TableColumn("제품명");
-		colProduct.setPrefWidth(240.0);
+		colProduct.setPrefWidth(200.0);
 		colProduct.setCellValueFactory(new PropertyValueFactory<>("product"));
 
 		TableColumn colStock = new TableColumn("재고");
-		colStock.setMaxWidth(50);
+		colStock.setMaxWidth(100);
 		colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
 
 		TableColumn colPurchase = new TableColumn("구입가");
@@ -1077,15 +1082,15 @@ public class InventoryManagementController implements Initializable {
 		colPnumber.setCellValueFactory(new PropertyValueFactory<>("productNumber"));
 
 		TableColumn colCompany = new TableColumn("업체명");
-		colCompany.setPrefWidth(190.0);
+		colCompany.setPrefWidth(180.0);
 		colCompany.setCellValueFactory(new PropertyValueFactory<>("companyName"));
 
 		TableColumn colProduct = new TableColumn("제품명");
-		colProduct.setPrefWidth(240.0);
+		colProduct.setPrefWidth(200.0);
 		colProduct.setCellValueFactory(new PropertyValueFactory<>("product"));
 
 		TableColumn colStock = new TableColumn("재고");
-		colStock.setMaxWidth(50);
+		colStock.setMaxWidth(100);
 		colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
 
 		TableColumn colSell = new TableColumn("판매가");

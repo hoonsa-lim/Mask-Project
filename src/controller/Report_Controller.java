@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import application.CompanyMain;
 import application.InventoryMain;
 import application.LoginMain;
 import application.TradeListMain;
@@ -242,7 +243,7 @@ public class Report_Controller implements Initializable {
 	// 업체 관리 화면으로 이동
 	private void handleBtnCompanyAction() {
 		try {
-			new TradeListMain().start(reportStage);
+			new CompanyMain().start(reportStage);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

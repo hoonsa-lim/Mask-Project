@@ -11,6 +11,8 @@ import java.util.concurrent.Phaser;
 
 import application.CompanyMain;
 import application.InventoryMain;
+import application.LoginMain;
+import application.ReportMain;
 import application.TradeListMain;
 import dao.CompanyDAO;
 import dao.InventoryDAO;
@@ -133,6 +135,7 @@ public class InventoryManagementController implements Initializable{
 	private String purchase = "주문";
 	private String sell = "판매";
 	private ArrayList<Inventory> arrayList = null;
+	private ArrayList<CompanyModel> arrayList2 = null;//콤보박스에 들어간 소비업체 객체정보 기억
 	
 	public InventoryManagementController() {
 		this.inventoryStage = null;
@@ -149,6 +152,8 @@ public class InventoryManagementController implements Initializable{
 		//다른 화면으로 이동 버튼
 		btnCompany.setOnAction(e-> handleBtnCompanyAction());
 		btnTrade.setOnAction(e-> handleBtnTradeAction());
+		btnReport.setOnAction(e-> handleBtnTradeAction());
+		btnLogout.setOnAction(e-> handleBtnTradeAction());
 		
 		//탭 이동시 리스트 초기화
 		tabInventory.setOnSelectionChanged(e-> selectTabInventoryAction());
@@ -176,6 +181,7 @@ public class InventoryManagementController implements Initializable{
 		btnOk.setOnAction(e-> handleBtnOkAction(e)); //등록 버튼
 		btnEdit.setOnAction(e-> handleBtnEditAction(e)); //수정 버튼
 		btnDelete.setOnAction(e-> handleBtnDeleteAction(e)); //삭제버튼
+		
 		btnSearch1.setOnAction(e-> handleBtnSearch1Action(e)); //재고 화면 검색버튼
 		btnSearch2.setOnAction(e-> handleBtnSearch2Action(e)); //주문 화면 검색버튼
 		btnSearch3.setOnAction(e-> handleBtnSearch3Action(e)); //판매 화면 검색버튼
@@ -206,6 +212,22 @@ public class InventoryManagementController implements Initializable{
 		cmbType4.setPromptText("종류 선택");
 	}
 
+	//거래 내역 화면으로 이동 버튼
+	private void handleBtnReportAction() {
+		try {
+			new ReportMain().start(inventoryStage);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	//거래 내역 화면으로 이동 버튼
+	private void handleBtnLogoutAction() {
+		try {
+			new LoginMain().start(new Stage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 	//거래 내역 화면으로 이동 버튼
 	private void handleBtnTradeAction() {
 		try {
@@ -302,11 +324,19 @@ public class InventoryManagementController implements Initializable{
 	     int second = cal.get(Calendar.YEAR); 
 	     int minute = cal.get(Calendar.MONTH) + 1 ; 
 	     int hour = cal.get(Calendar.DAY_OF_MONTH); 
-	      
+	     
+	     //거래가 이뤼지는 시스템 날짜를 받는 문
 	     String s = String.valueOf(second) +"-"+String.valueOf(minute)+"-"+String.valueOf(hour);
-		
+	     
+	     //콤보박스에서 선택된 소비업체의 업체번호를 받아오기 위한 문
+	     CompanyModel c = arrayList2.get(cmbCompany5.getSelectionModel().getSelectedIndex());
+	     
 	     int returnValue2 = tradelistDAO.registrationPurchaseOrSell(Integer.parseInt(txtOrder2.getText()),
-					txtTotalSell.getText(),s, sell, iv.getCompanyNumber(), iv.getProductNumber());
+					txtTotalSell.getText(),
+					s, 
+					sell, 
+					c.getCompany_number(),
+					iv.getProductNumber());
 		
 		int editStock = (currentStock - sOrder);
 		
@@ -713,7 +743,7 @@ public class InventoryManagementController implements Initializable{
 	private void companyComboBoxList() {
 		CompanyDAO companyDAO = new CompanyDAO();
 		
-		ArrayList<CompanyModel> arrayList = companyDAO.companyListUp(production);
+		ArrayList<CompanyModel> arrayList = companyDAO.inventoryStageCompanyComboboxListUp(production);
 		String cName =null;
 		if(arrayList == null) {
 			return;
@@ -726,12 +756,11 @@ public class InventoryManagementController implements Initializable{
 			obList1.add(com.getCompany_name());
 		}
 		
-		ArrayList<CompanyModel> arrayList2 = companyDAO.companyListUp(production2);
+		arrayList2 = companyDAO.inventoryStageCompanyComboboxListUp(production2);
 		String cName2 = null;
 		if(arrayList2 == null) {
 			return;
 		}
-		System.out.println(arrayList2.toString());
 		for(int i = 0; i<arrayList2.size(); i++) {
 			CompanyModel com = arrayList2.get(i);
 			cName2=com.getCompany_name();

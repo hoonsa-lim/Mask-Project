@@ -320,10 +320,11 @@ public class InventoryDAO {
 		try {
 			con = InventoryDBUtill.getConnection();
 			
-			String query = "select b.product_number, b.product_name, b.stock, b.purchase_price, b.sell_price, b.type, b.size, b.color, a.company_name, a.company_number " +
-					"from companyTBL a "+
-					"inner join inventoryTBL b "+
-					"where b.product_number like ? and a.production_consumption = '»ý»ê'";
+			String query = "select b.product_number, b.product_name, \r\n" + 
+					"b.stock, b.purchase_price, b.sell_price, b.type, b.size, b.color, a.company_name, a.company_number\r\n" + 
+					"from companyTBL a, inventoryTBL b\r\n" + 
+					"where a.company_number = b.c_cnumber_fk \r\n" +
+					"having product_number like ?";
 			pst = con.prepareStatement(query);
 			pst.setString(1,"%"+ pNumber +"%");
 			

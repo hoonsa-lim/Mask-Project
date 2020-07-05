@@ -271,6 +271,7 @@ public class Company_Management_Controller implements Initializable {
 					txtAdress.getText(), nowListProdConsum);
 			int result = new CompanyDAO().CompanyEdit(editCm);
 			tableViewProdCompanyListInit(nowListProdConsum);
+			companyEditStage.close();
 		});
 
 		// 기존값 지우기 버튼

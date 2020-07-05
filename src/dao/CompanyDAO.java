@@ -254,4 +254,49 @@ public class CompanyDAO {
 		return arrayList;
 	}
 
+
+	// inventory Stage 콤보박스 company List 초기화
+		public ArrayList<CompanyModel> inventoryStageCompanyComboboxListUp(String production_consumption) {
+			Connection con = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			ArrayList<CompanyModel> arrayListCompany = null;
+
+			try {
+				con = DBUtil.getConnection();
+				String query = null;
+				// company List 초기화
+				query = "select * from companyTBL where contract = '계약중' and production_consumption = ?";
+				ps = con.prepareStatement(query);
+				ps.setString(1, production_consumption);
+				rs = ps.executeQuery();
+
+				// model을 저장할 ObservableList
+				arrayListCompany = new ArrayList<CompanyModel>();
+
+				// resultSet 값을 모델, arrayList에 저장
+				while (rs.next()) {
+					CompanyModel companyMd = new CompanyModel(rs.getString(1), rs.getString(2), rs.getString(3),
+							rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
+					arrayListCompany.add(companyMd);
+				}
+			} catch (Exception e) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("에러");
+				alert.setHeaderText("DB접속 또는 쿼리문 실행 또는 resultSet을 return받는 과정에서 오류 발생");
+				alert.setContentText("companyListUp() \n" + e.getStackTrace());
+				alert.showAndWait();
+			} finally {
+				try {
+					if (ps != null)
+						ps.close();
+					if (con != null)
+						con.close();
+					if (rs != null)
+						rs.close();
+				} catch (SQLException e) {
+				}
+			}
+			return arrayListCompany;
+		}
 }

@@ -383,12 +383,12 @@ public class Company_Management_Controller implements Initializable {
 		btnClose.setOnAction(event -> companyEditStage.close());
 
 		// 등록창 디버깅 용 내용
-		txtName.setText("미래능력개발 교육원");
-		txtNumber.setText("1068231388");
-		txtManagerName.setText("홍길덩");
-		txtPhone.setText("01095586958");
-		txtAdress.setText("서울시 성동구 왕십리동");
-		rdoContract.setSelected(true);
+//		txtName.setText("미래능력개발 교육원");
+//		txtNumber.setText("1068231388");
+//		txtManagerName.setText("홍길덩");
+//		txtPhone.setText("01095586958");
+//		txtAdress.setText("서울시 성동구 왕십리동");
+//		rdoContract.setSelected(true);
 
 		// 기존값 지우기 버튼
 		btnNumClear.setOnAction(event -> txtNumber.clear());

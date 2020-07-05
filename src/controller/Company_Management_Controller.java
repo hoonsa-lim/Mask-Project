@@ -661,6 +661,7 @@ public class Company_Management_Controller implements Initializable {
 	}
 	// 로그인 화면으로 이동
 	private void handleBtnLogoutAction() {
+		companyEditStage = new Stage();
 		try {
 			new LoginMain().start(companyEditStage);
 		} catch (Exception e) {

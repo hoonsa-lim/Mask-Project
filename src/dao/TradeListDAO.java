@@ -116,7 +116,11 @@ public class TradeListDAO {
 		ArrayList<TradeListModel> arrayList = null;
 		try {
 			con = DBUtil.getConnection();
-			String query = "select c.no, c.order_quantity, c.total_price, c.date, c.ps, a.company_name, b.product_name, b.product_number from companyTBL a inner join  inventoryTBL b on a.company_number = b.c_cnumber_fk inner join tradelistTBL c on b.product_number = c.i_pnumber_fk where date >= ? and ps = ? order by date ASC";
+			String query = "select t.no, t.order_quantity, t.total_price, t.date, t.ps, c.company_name, i.product_name, i.product_number "
+					+ "from companyTBL c " + "inner join tradelistTBL t " + "on c.company_number = t.c_cnumber_fk "
+					+ "inner join inventoryTBL i " + "on t.i_pnumber_fk=i.Product_number "
+					+ "where date >= ? and ps = ? "
+					+ "order by date ASC";
 
 			pstmt = con.prepareStatement(query);
 
